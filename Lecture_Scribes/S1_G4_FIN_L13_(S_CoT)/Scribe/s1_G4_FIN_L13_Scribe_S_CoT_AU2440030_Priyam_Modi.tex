@@ -1,0 +1,504 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\begin{document}
+
+\title{CSE 400: Fundamentals of Probability in Computing\\
+Tutorial--1}
+\date{School of Engineering and Applied Science (SEAS), Ahmedabad University\\
+February 13, 2026}
+\maketitle
+
+This document is a complete, step-by-step reconstruction of Tutorial--1. All questions are solved fully and explicitly. Every intermediate computation is written in detail.
+
+\section*{Q1}
+
+Twenty distinct dishes are to be divided into four platters of exactly five dishes each. The order of the platters does not matter.
+
+\subsection*{(a) Total number of ways to divide 20 different dishes into four groups of five dishes each}
+
+First choose 5 dishes for the first platter:
+
+\[
+\binom{20}{5}
+\]
+
+Then choose 5 dishes from the remaining 15:
+
+\[
+\binom{15}{5}
+\]
+
+Then choose 5 dishes from the remaining 10:
+
+\[
+\binom{10}{5}
+\]
+
+The remaining 5 dishes form the fourth platter:
+
+\[
+\binom{5}{5}
+\]
+
+Since the order of the four platters does not matter, divide by $4!$.
+
+\[
+\text{Total number of ways}
+=
+\frac{
+\binom{20}{5}
+\binom{15}{5}
+\binom{10}{5}
+\binom{5}{5}
+}{4!}
+\]
+
+\subsection*{(b) Probability that all four platters have dishes of the same cuisine}
+
+There are 5 dishes from each of the 4 cuisines.
+
+Favorable outcome: each platter contains exactly the 5 dishes of one cuisine.
+
+There is exactly one such partition.
+
+Total number of partitions is:
+
+\[
+\frac{
+\binom{20}{5}
+\binom{15}{5}
+\binom{10}{5}
+\binom{5}{5}
+}{4!}
+\]
+
+Therefore,
+
+\[
+P =
+\frac{1}{
+\frac{
+\binom{20}{5}
+\binom{15}{5}
+\binom{10}{5}
+\binom{5}{5}
+}{4!}
+}
+\]
+
+\section*{Q2}
+
+Buses arrive at 15-minute intervals starting at 7:00 A.M.
+
+Arrival time is uniformly distributed between 7:00 and 7:30.
+
+Total interval length = 30 minutes.
+
+\subsection*{(a) Probability that waiting time is less than 5 minutes}
+
+Waiting is less than 5 minutes if arrival occurs in the last 5 minutes before a bus arrives.
+
+These intervals are:
+
+7:10--7:15
+
+7:25--7:30
+
+Each interval has length 5 minutes.
+
+Total favorable time = 10 minutes.
+
+\[
+P = \frac{10}{30} = \frac{1}{3}
+\]
+
+\subsection*{(b) Probability that waiting time is more than 10 minutes}
+
+Waiting exceeds 10 minutes if arrival occurs in the first 5 minutes after a bus departure.
+
+These intervals are:
+
+7:00--7:05
+
+7:15--7:20
+
+Total favorable time = 10 minutes.
+
+\[
+P = \frac{10}{30} = \frac{1}{3}
+\]
+
+\section*{Q3}
+
+Given:
+
+\[
+P(\text{arrives late}) = 0.15
+\]
+
+\[
+P(\text{leaves early}) = 0.25
+\]
+
+\[
+P(\text{arrives late and leaves early}) = 0.08
+\]
+
+We compute:
+
+Arrives early is complement of arrives late:
+
+\[
+P(\text{arrives early}) = 1 - 0.15 = 0.85
+\]
+
+Leaves late is complement of leaves early:
+
+\[
+P(\text{leaves late}) = 1 - 0.25 = 0.75
+\]
+
+Now compute:
+
+\[
+P(\text{arrives early AND leaves late})
+=
+1 - P(\text{arrives late}) - P(\text{leaves early}) + P(\text{arrives late AND leaves early})
+\]
+
+\[
+= 1 - 0.15 - 0.25 + 0.08
+\]
+
+\[
+= 0.68
+\]
+
+Thus,
+
+\[
+P(\text{arrives early} \mid \text{leaves late})
+=
+\frac{0.68}{0.75}
+=
+\frac{68}{75}
+\]
+
+\section*{Q4}
+
+Expected number of typographical errors on a page = 0.2.
+
+\[
+X \sim \text{Poisson}(0.2)
+\]
+
+\[
+P(X=k) = e^{-0.2}\frac{0.2^k}{k!}
+\]
+
+\subsection*{(a) 0 errors}
+
+\[
+P(X=0) = e^{-0.2}
+\]
+
+\subsection*{(b) 2 or more errors}
+
+\[
+P(X \ge 2)
+=
+1 - P(0) - P(1)
+\]
+
+\[
+= 1 - e^{-0.2} - 0.2 e^{-0.2}
+\]
+
+\[
+= 1 - e^{-0.2}(1+0.2)
+\]
+
+\section*{Q5}
+
+Average number of airplane crashes per month = 3.5.
+
+\[
+X \sim \text{Poisson}(3.5)
+\]
+
+\subsection*{(a) At least 2 accidents}
+
+\[
+P(X \ge 2)
+=
+1 - P(0) - P(1)
+\]
+
+\[
+= 1 - e^{-3.5} - 3.5 e^{-3.5}
+\]
+
+\[
+= 1 - e^{-3.5}(1+3.5)
+\]
+
+\subsection*{(b) At most 1 accident}
+
+\[
+P(X \le 1)
+=
+P(0) + P(1)
+\]
+
+\[
+= e^{-3.5} + 3.5 e^{-3.5}
+\]
+
+\[
+= e^{-3.5}(1+3.5)
+\]
+
+\section*{Q6}
+
+\[
+X \sim \text{Poisson}(3)
+\]
+
+\subsection*{(a) $P(X \ge 3)$}
+
+\[
+P(X \ge 3)
+=
+1 - P(0) - P(1) - P(2)
+\]
+
+\[
+P(0) = e^{-3}
+\]
+
+\[
+P(1) = 3e^{-3}
+\]
+
+\[
+P(2) = \frac{3^2}{2!}e^{-3} = \frac{9}{2}e^{-3}
+\]
+
+Thus,
+
+\[
+P(X \ge 3)
+=
+1 - e^{-3} - 3e^{-3} - \frac{9}{2}e^{-3}
+\]
+
+\[
+= 1 - e^{-3}\left(1+3+\frac{9}{2}\right)
+\]
+
+\[
+= 1 - \frac{17}{2}e^{-3}
+\]
+
+\subsection*{(b) $P(X \ge 3 \mid X \ge 1)$}
+
+\[
+\frac{P(X \ge 3)}{P(X \ge 1)}
+\]
+
+\[
+P(X \ge 1)
+=
+1 - P(0)
+=
+1 - e^{-3}
+\]
+
+Thus,
+
+\[
+\frac{1 - \frac{17}{2}e^{-3}}{1 - e^{-3}}
+\]
+
+\section*{Q7}
+
+Given:
+
+\[
+f_X(x)
+=
+\frac{1}{\sqrt{8\pi}}
+\exp\left(-\frac{(x+3)^2}{8}\right)
+\]
+
+Let:
+
+\[
+Z = \frac{X+3}{2}
+\]
+
+\subsection*{1. $P(X \le 0)$}
+
+\[
+Z = \frac{0+3}{2} = \frac{3}{2}
+\]
+
+\[
+P(X \le 0)
+=
+P\left(Z \le \frac{3}{2}\right)
+=
+1 - Q(1.5)
+\]
+
+\subsection*{2. $P(X > 4)$}
+
+\[
+Z = \frac{4+3}{2} = \frac{7}{2}
+\]
+
+\[
+P(X > 4)
+=
+Q(3.5)
+\]
+
+\subsection*{3. $P(|X+3| < 2)$}
+
+\[
+-2 < X+3 < 2
+\]
+
+Divide by 2:
+
+\[
+-1 < Z < 1
+\]
+
+\[
+P = 1 - 2Q(1)
+\]
+
+\subsection*{4. $P(|X-2| > 1)$}
+
+\[
+X > 3 \quad \text{or} \quad X < 1
+\]
+
+Standardize each term accordingly and express as sum of Q-functions.
+
+\section*{Q8}
+
+Let:
+
+\[
+X \sim \text{Binomial}(12,\theta)
+\]
+
+Conviction requires $(X \ge 8)$.
+
+Correct decision probability:
+
+\[
+\sum_{k=8}^{12}
+\binom{12}{k}
+\theta^k(1-\theta)^{12-k}
++
+\sum_{k=0}^{4}
+\binom{12}{k}
+\theta^k(1-\theta)^{12-k}
+\]
+
+\section*{Q9}
+
+Given:
+
+\[
+p(i) = c\frac{\lambda^i}{i!}
+\]
+
+Since probabilities sum to 1:
+
+\[
+\sum_{i=0}^{\infty} c\frac{\lambda^i}{i!}
+=
+c e^{\lambda}
+=
+1
+\]
+
+\[
+c = e^{-\lambda}
+\]
+
+\subsection*{(a)}
+
+\[
+P(X=0)
+=
+e^{-\lambda}
+\]
+
+\subsection*{(b)}
+
+\[
+P(X>2)
+=
+1 -
+e^{-\lambda}\left(1+\lambda+\frac{\lambda^2}{2}\right)
+\]
+
+\section*{Q10}
+
+System operates if at least half components function.
+
+\subsection*{(a)}
+
+5-component system effective if $\ge 3$ function:
+
+\[
+P_5
+=
+\binom{5}{3}p^3(1-p)^2
++
+\binom{5}{4}p^4(1-p)
++
+\binom{5}{5}p^5
+\]
+
+3-component system effective if $\ge 2$ function:
+
+\[
+P_3
+=
+\binom{3}{2}p^2(1-p)
++
+\binom{3}{3}p^3
+\]
+
+5-component system is better when:
+
+\[
+P_5 > P_3
+\]
+
+\subsection*{(b)}
+
+\[
+\sum_{j=k+1}^{2k+1}
+\binom{2k+1}{j}
+p^j(1-p)^{2k+1-j}
+>
+\sum_{j=k}^{2k-1}
+\binom{2k-1}{j}
+p^j(1-p)^{2k-1-j}
+\]
+
+\bigskip
+
+\centerline{\textbf{End of Complete Exam-Oriented Tutorial--1 Scribe}}
+
+\end{document}
