@@ -1,0 +1,317 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{setspace}
+
+\geometry{margin=1in}
+\onehalfspacing
+
+\title{CSE 400: Fundamentals of Probability in Computing \\ \large Tutorial--1 Lecture Scribe}
+\author{Name: Masoom Choksi \\ AUID: AU2440263}
+\date{February 13, 2026}
+
+\begin{document}
+\maketitle
+
+\section*{Question 1}
+
+\textbf{Problem Statement.}  
+There are 20 distinct dishes to be divided into 4 groups of 5 dishes each. The order of the groups does not matter.
+
+\subsection*{(a) Total number of ways}
+
+\textbf{Assumptions.}
+\begin{itemize}
+\item All dishes are distinct.
+\item Groups are unordered.
+\item Each group has exactly 5 dishes.
+\end{itemize}
+
+\textbf{Derivation.}
+
+The total number of ways to partition 20 distinct objects into 4 groups of equal size 5 is
+
+\[
+\frac{20!}{(5!)^4 \cdot 4!}
+\]
+
+The denominator accounts for:
+\begin{itemize}
+\item $5!$ permutations within each group,
+\item $4!$ permutations of the groups themselves.
+\end{itemize}
+
+\subsection*{(b) Probability all platters have the same cuisine}
+
+\textbf{Given.}
+\begin{itemize}
+\item 5 dishes from each of 4 cuisines.
+\end{itemize}
+
+\textbf{Favorable outcomes.}  
+Each platter consists of dishes from exactly one cuisine. Since cuisines are fixed, there is only
+
+\[
+1
+\]
+
+favorable arrangement.
+
+\textbf{Total outcomes.}
+\[
+\frac{20!}{(5!)^4 \cdot 4!}
+\]
+
+\textbf{Probability.}
+\[
+P = \frac{1}{\frac{20!}{(5!)^4 \cdot 4!}} = \frac{(5!)^4 \cdot 4!}{20!}
+\]
+
+\section*{Question 2}
+
+\textbf{Problem Statement.}  
+A passenger arrives uniformly between 7:00 and 7:30. Buses arrive every 15 minutes.
+
+\textbf{Assumption.}
+Arrival time is uniformly distributed over a 30-minute interval.
+
+\subsection*{(a) Waiting time less than 5 minutes}
+
+Total interval length:
+\[
+30 \text{ minutes}
+\]
+
+Favorable intervals:
+\[
+2 \times 5 = 10 \text{ minutes}
+\]
+
+\textbf{Probability.}
+\[
+P = \frac{10}{30} = \frac{1}{3}
+\]
+
+\subsection*{(b) Waiting time more than 10 minutes}
+
+Favorable intervals:
+\[
+2 \times 5 = 10 \text{ minutes}
+\]
+
+\textbf{Probability.}
+\[
+P = \frac{10}{30} = \frac{1}{3}
+\]
+
+\section*{Question 3}
+
+\textbf{Given.}
+\[
+P(L) = 0.15, \quad P(E) = 0.25, \quad P(L \cap E) = 0.08
+\]
+
+\textbf{Required.}
+\[
+P(L^c \mid E^c)
+\]
+
+\textbf{Derivation.}
+\[
+P(E^c) = 1 - 0.25 = 0.75
+\]
+
+\[
+P(L^c \cap E^c) = 1 - P(L \cup E)
+\]
+
+\[
+P(L \cup E) = 0.15 + 0.25 - 0.08 = 0.32
+\]
+
+\[
+P(L^c \cap E^c) = 1 - 0.32 = 0.68
+\]
+
+\textbf{Conditional Probability.}
+\[
+P(L^c \mid E^c) = \frac{0.68}{0.75} = \frac{68}{75}
+\]
+
+\section*{Question 4}
+
+\textbf{Given.}  
+Number of typographical errors follows a Poisson distribution with
+\[
+\lambda = 0.2
+\]
+
+\subsection*{(a) Probability of 0 errors}
+
+\[
+P(X=0) = e^{-0.2}
+\]
+
+\subsection*{(b) Probability of 2 or more errors}
+
+\[
+P(X \ge 2) = 1 - P(0) - P(1)
+\]
+
+\[
+P(1) = 0.2 e^{-0.2}
+\]
+
+\[
+P(X \ge 2) = 1 - e^{-0.2} - 0.2 e^{-0.2}
+\]
+
+\section*{Question 5}
+
+\textbf{Given.}
+\[
+\lambda = 3.5
+\]
+
+\subsection*{(a) At least 2 accidents}
+
+\[
+P(X \ge 2) = 1 - P(0) - P(1)
+\]
+
+\[
+P(X \ge 2) = 1 - e^{-3.5} - 3.5 e^{-3.5}
+\]
+
+\subsection*{(b) At most 1 accident}
+
+\[
+P(X \le 1) = e^{-3.5} + 3.5 e^{-3.5}
+\]
+
+\section*{Question 6}
+
+\textbf{Given.}
+\[
+X \sim \text{Poisson}(3)
+\]
+
+\subsection*{(a) $P(X \ge 3)$}
+
+\[
+P(X \ge 3) = 1 - (P(0) + P(1) + P(2))
+\]
+
+\[
+= 1 - \left(e^{-3} + 3e^{-3} + \frac{9}{2}e^{-3}\right)
+\]
+
+\subsection*{(b) $P(X \ge 3 \mid X \ge 1)$}
+
+\[
+P(X \ge 3 \mid X \ge 1) = \frac{P(X \ge 3)}{1 - P(0)}
+\]
+
+\section*{Question 7}
+
+\textbf{Given PDF.}
+\[
+f_X(x) = \frac{1}{\sqrt{8\pi}} \exp\left(-\frac{(x+3)^2}{8}\right)
+\]
+
+\textbf{Standardization.}
+\[
+Z = \frac{X+3}{2}
+\]
+
+\subsection*{Results (Q-function form)}
+
+\[
+P(X \le 0) = Q\left(\frac{3}{2}\right)
+\]
+
+\[
+P(X > 4) = Q\left(\frac{7}{2}\right)
+\]
+
+\[
+P(|X+3|<2) = 1 - 2Q(1)
+\]
+
+\[
+P(|X-2|>1) = Q\left(\frac{1}{2}\right) + Q\left(\frac{3}{2}\right)
+\]
+
+\section*{Question 8}
+
+\textbf{Given.}
+\begin{itemize}
+\item 12 jurors
+\item At least 8 must vote correctly
+\item Each juror votes correctly with probability $\theta$
+\end{itemize}
+
+\textbf{Probability of correct decision.}
+
+\[
+P = \sum_{k=8}^{12} \binom{12}{k} \theta^k (1-\theta)^{12-k}
+\]
+
+\section*{Question 9}
+
+\textbf{PMF.}
+\[
+p(i) = \frac{c\lambda^i}{i!}
+\]
+
+\textbf{Normalization.}
+\[
+\sum_{i=0}^{\infty} \frac{c\lambda^i}{i!} = 1
+\Rightarrow c = e^{-\lambda}
+\]
+
+\subsection*{(a) $P(X=0)$}
+
+\[
+P(X=0) = e^{-\lambda}
+\]
+
+\subsection*{(b) $P(X>2)$}
+
+\[
+P(X>2) = 1 - e^{-\lambda}\left(1 + \lambda + \frac{\lambda^2}{2}\right)
+\]
+
+\section*{Question 10}
+
+\textbf{Given.}
+\begin{itemize}
+\item $n$ components
+\item Each functions with probability $p$
+\item System works if at least half function
+\end{itemize}
+
+\subsection*{(a) Comparison: 5 vs 3 components}
+
+\[
+P_5 = \sum_{k=3}^{5} \binom{5}{k} p^k (1-p)^{5-k}
+\]
+
+\[
+P_3 = \sum_{k=2}^{3} \binom{3}{k} p^k (1-p)^{3-k}
+\]
+
+System with 5 components is better when:
+\[
+P_5 > P_3
+\]
+
+\subsection*{(b) General case}
+
+A $(2k+1)$-component system is better than $(2k-1)$ when:
+\[
+p > \frac{1}{2}
+\]
+
+\end{document}
