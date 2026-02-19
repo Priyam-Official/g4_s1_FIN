@@ -1,0 +1,251 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+
+\title{CSE 400: Fundamentals of Probability in Computing\\
+Lecture 13 (Tutorial) – Consolidated Exam Revision Notes}
+\date{}
+\begin{document}
+
+\maketitle
+
+These notes systematically organize all definitions, distributions, assumptions, identities, and standard probability results appearing in Tutorial-1 (Lecture 13). The presentation follows the mathematical structure underlying the problems and consolidates the tools required for solving them in an examination setting.
+
+\section*{1. Combinatorial Structures and Multinomial Counting}
+
+\subsection*{Partitioning Distinct Objects}
+
+Given 20 distinct objects divided into four groups of five objects each, where:
+
+Each group contains exactly 5 objects,
+
+Order within each group is irrelevant,
+
+Order among the groups is irrelevant,
+
+the number of possible divisions is
+
+\[
+\frac{20!}{(5!)^4 \, 4!}.
+\]
+
+The factor $(5!)^4$ removes ordering within each group.
+
+The factor $4!$ removes ordering among the four groups.
+
+\subsection*{Probability via Counting}
+
+If structural constraints are imposed (e.g., grouping by cuisine when exactly five objects of each type exist), probability is computed as
+
+\[
+\frac{\text{Number of favorable partitions}}{\text{Total number of partitions}}.
+\]
+
+\section*{2. Uniform Distribution on an Interval}
+
+A passenger arrives at a time uniformly distributed between 7:00 and 7:30 A.M.
+
+Let 
+\[
+X \sim \text{Uniform}(0,30).
+\]
+
+For $a < b$,
+
+\[
+P(a \le X \le b) = \frac{b - a}{30}.
+\]
+
+When arrivals (e.g., buses every 15 minutes) determine waiting time, probabilities are evaluated by measuring the corresponding subinterval lengths relative to the total interval length 30.
+
+\section*{3. Conditional Probability and Basic Identities}
+
+Let events $A$ and $B$.
+
+\subsection*{Conditional Probability}
+
+\[
+P(A \mid B) = \frac{P(A \cap B)}{P(B)}, \quad P(B) > 0.
+\]
+
+\subsection*{Complement Rule}
+
+\[
+P(A^c) = 1 - P(A).
+\]
+
+\subsection*{Decomposition Identities}
+
+\[
+P(A \cap B^c) = P(A) - P(A \cap B).
+\]
+
+These relations are applied when probabilities of joint and marginal events are given.
+
+\section*{4. Poisson Distribution}
+
+\subsection*{Definition}
+
+A random variable $X$ is Poisson with parameter $\lambda > 0$ if
+
+\[
+P(X = k) = \frac{e^{-\lambda} \lambda^k}{k!}, \quad k = 0,1,2,\dots
+\]
+
+\subsection*{Key Properties}
+
+Mean: 
+\[
+E[X] = \lambda.
+\]
+
+Used for modeling counts over fixed intervals.
+
+\subsection*{Cumulative and Complement Forms}
+
+\[
+P(X \ge m) = 1 - \sum_{k=0}^{m-1} \frac{e^{-\lambda} \lambda^k}{k!}
+\]
+
+\[
+P(X \le m) = \sum_{k=0}^{m} \frac{e^{-\lambda} \lambda^k}{k!}
+\]
+
+\subsection*{Conditional Probability for Poisson}
+
+\[
+P(X \ge a \mid X \ge b) = \frac{P(X \ge a)}{P(X \ge b)}, \quad a \ge b.
+\]
+
+\section*{5. Exponential Series Identity}
+
+The identity
+
+\[
+\sum_{i=0}^{\infty} \frac{\lambda^i}{i!} = e^{\lambda}
+\]
+
+is used for normalization of probability mass functions of the form
+
+\[
+p(i) = c \frac{\lambda^i}{i!}, \quad i = 0,1,2,\dots
+\]
+
+Imposing
+
+\[
+\sum_{i=0}^{\infty} p(i) = 1
+\]
+
+gives
+
+\[
+c = e^{-\lambda}.
+\]
+
+\section*{6. Binomial Distribution and Majority Rules}
+
+\subsection*{Definition}
+
+If each of $n$ independent trials succeeds with probability $p$, then
+
+\[
+X \sim \text{Binomial}(n,p)
+\]
+
+with
+
+\[
+P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}.
+\]
+
+\subsection*{Majority Threshold}
+
+For systems requiring at least half the components to function:
+
+If $n = 5$, system operates if $X \ge 3$.
+
+If $n = 3$, system operates if $X \ge 2$.
+
+In general, if $n = 2k + 1$, operation requires $X \ge k + 1$.
+
+Probability of operation:
+
+\[
+P(X \ge \text{threshold}) = \sum_{k=\text{threshold}}^{n} \binom{n}{k} p^k (1-p)^{n-k}.
+\]
+
+System comparisons are made by comparing these cumulative binomial probabilities.
+
+\section*{7. Jury Decision Model}
+
+Assume:
+
+12 independent jurors,
+
+Each makes the correct decision with probability $\theta$.
+
+Let
+
+\[
+X \sim \text{Binomial}(12,\theta).
+\]
+
+A conviction requires at least 8 guilty votes:
+
+\[
+P(\text{correct decision}) = \sum_{k=8}^{12} \binom{12}{k} \theta^k (1-\theta)^{12-k}.
+\]
+
+Independence and identical probability assumptions are essential.
+
+\section*{8. Normal Distribution and Q-Function}
+
+Given density
+
+\[
+f_X(x) = \frac{1}{\sqrt{8\pi}} \exp\left(-\frac{(x+3)^2}{8}\right),
+\]
+
+this corresponds to a normal distribution with:
+
+\[
+\mu = -3, \quad \sigma^2 = 4.
+\]
+
+\subsection*{Standardization}
+
+\[
+Z = \frac{X - \mu}{\sigma}.
+\]
+
+\subsection*{Q-Function}
+
+\[
+Q(x) = P(Z > x).
+\]
+
+All required probabilities are expressed in terms of the Q-function after standardization.
+
+Absolute value expressions are converted into interval probabilities and then standardized accordingly.
+
+\section*{Core Mathematical Tools for Examination}
+
+The tutorial relies on the following foundational structures:
+
+Multinomial counting for equal partitions
+
+Uniform distribution on finite intervals
+
+Conditional probability and complement identities
+
+Poisson distribution and cumulative complements
+
+Exponential series normalization
+
+Binomial distribution with majority thresholds
+
+Normal distribution standardization and Q-function
+
+These tools form the complete conceptual and computational framework required for solving all problems in Lecture 13 (Tutorial).
+
+\end{document}
