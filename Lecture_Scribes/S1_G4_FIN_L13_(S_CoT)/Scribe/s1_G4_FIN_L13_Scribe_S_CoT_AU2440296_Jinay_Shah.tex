@@ -1,0 +1,497 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+
+\begin{document}
+
+\begin{center}
+\textbf{CSE 400: Fundamentals of Probability in Computing} \\
+\textbf{Lecture 13 (Tutorial) — Exam-Oriented Scribe}
+\end{center}
+
+Based strictly on Tutorial-1 (February 13, 2026) 
+
+Tutorial\_1
+
+\section*{\textbf{Q1. Division of 20 Distinct Dishes into Four Platters}}
+
+\textbf{Problem Data}
+
+Total dishes: 20 (all distinct).
+
+To be divided into 4 platters.
+
+Each platter must contain exactly 5 dishes.
+
+The order of platters does not matter.
+
+\subsection*{\textbf{(a) Total Number of Ways}}
+
+\textbf{Definitions and Assumptions}
+
+We partition 20 distinct objects into 4 subsets of equal size (5 each).
+
+Subsets are unordered.
+
+\textbf{Step 1: Count Ordered Selections}
+
+Choose 5 dishes for the first platter:
+
+\[
+\binom{20}{5}
+\]
+
+Choose 5 of the remaining 15:
+
+\[
+\binom{15}{5}
+\]
+
+Choose 5 of the remaining 10:
+
+\[
+\binom{10}{5}
+\]
+
+Choose the remaining 5:
+
+\[
+\binom{5}{5}
+\]
+
+Thus, total ordered groupings:
+
+\[
+\binom{20}{5}
+\binom{15}{5}
+\binom{10}{5}
+\binom{5}{5}
+\]
+
+\textbf{Step 2: Remove Ordering of Platters}
+
+Since platters are indistinguishable, divide by $4!$:
+
+\[
+\frac{1}{4!}
+\binom{20}{5}
+\binom{15}{5}
+\binom{10}{5}
+\binom{5}{5}
+\]
+
+\subsection*{\textbf{(b) Probability All Platters Contain One Cuisine Each}}
+
+\textbf{Additional Information}
+
+5 dishes from each of four cuisines.
+
+Total dishes = 20.
+
+\textbf{Total Possible Divisions}
+
+Same as in part (a):
+
+\[
+\frac{1}{4!}
+\binom{20}{5}
+\binom{15}{5}
+\binom{10}{5}
+\binom{5}{5}
+\]
+
+\textbf{Favorable Divisions}
+
+Each cuisine has exactly 5 dishes.
+
+Hence each cuisine must form one platter.
+
+Only the assignment of cuisines to platters varies.
+
+Number of assignments:
+
+\[
+4!
+\]
+
+\textbf{Probability}
+
+\[
+\frac{4!}{
+\frac{1}{4!}
+\binom{20}{5}
+\binom{15}{5}
+\binom{10}{5}
+\binom{5}{5}}
+\]
+
+\section*{\textbf{Q2. Waiting Time with Uniform Arrival}}
+
+\textbf{Problem Data}
+
+Buses arrive every 15 minutes starting at 7:00 A.M.
+
+Passenger arrival time uniformly distributed between 7:00 and 7:30.
+
+Let arrival time $T \sim U(0,30)$.
+
+\subsection*{\textbf{(a) Waiting Less Than 5 Minutes}}
+
+Waiting time is the time until the next bus.
+
+Bus arrival times:
+
+0 minutes
+
+15 minutes
+
+30 minutes
+
+Arrival results in waiting < 5 minutes if:
+
+Arrival between 10 and 15,
+
+Arrival between 25 and 30.
+
+Total favorable length:
+
+\[
+5+5=10
+\]
+
+Total interval length:
+
+30
+
+\[
+P(wait<5)=\frac{10}{30}=\frac{1}{3}
+\]
+
+\subsection*{\textbf{(b) Waiting More Than 10 Minutes}}
+
+Waiting > 10 minutes if:
+
+Arrival between 0 and 5,
+
+Arrival between 15 and 20.
+
+Total favorable length:
+
+\[
+5+5=10
+\]
+
+\[
+P(wait>10)=\frac{10}{30}=\frac{1}{3}
+\]
+
+\section*{\textbf{Q3. Conditional Probability}}
+
+Given
+
+\[
+P(L)=0.15
+\]
+
+\[
+P(E)=0.25
+\]
+
+\[
+P(L \cap E)=0.08
+\]
+
+Where:
+
+$L$: arrives late,
+
+$E$: leaves early.
+
+We seek:
+
+\[
+P(L^c \mid E^c)
+\]
+
+\textbf{Step 1: Complements}
+
+\[
+P(L^c)=1-0.15=0.85
+\]
+
+\[
+P(E^c)=1-0.25=0.75
+\]
+
+\textbf{Step 2: Inclusion–Exclusion}
+
+\[
+P(L \cup E)=P(L)+P(E)-P(L \cap E)=0.15+0.25-0.08=0.32
+\]
+
+\textbf{Step 3: Complement Event}
+
+\[
+P(L^c \cap E^c)=1-P(L \cup E)=1-0.32=0.68
+\]
+
+\textbf{Step 4: Conditional Probability}
+
+\[
+P(L^c \mid E^c)=\frac{P(L^c \cap E^c)}{P(E^c)}=\frac{0.68}{0.75}
+\]
+
+\section*{\textbf{Q4. Poisson Distribution (Mean 0.2)}}
+
+\textbf{Assumption}
+
+Expected number of typographical errors per page = 0.2.
+
+$X \sim Poisson(0.2)$
+
+PMF:
+
+\[
+P(X=k)=e^{-0.2}\frac{0.2^k}{k!}
+\]
+
+\subsection*{\textbf{(a) Zero Errors}}
+
+\[
+P(X=0)=e^{-0.2}
+\]
+
+\subsection*{\textbf{(b) Two or More Errors}}
+
+\[
+P(X \ge 2)=1-P(0)-P(1)
+\]
+
+\[
+P(1)=e^{-0.2}(0.2)
+\]
+
+\[
+P(X \ge 2)=1-e^{-0.2}(1+0.2)
+\]
+
+\section*{\textbf{Q5. Poisson Distribution (Mean 3.5)}}
+
+$X \sim Poisson(3.5)$
+
+\subsection*{\textbf{(a) At Least 2 Accidents}}
+
+\[
+P(X \ge 2)=1-P(0)-P(1)=1-e^{-3.5}(1+3.5)
+\]
+
+\subsection*{\textbf{(b) At Most 1 Accident}}
+
+\[
+P(X \le 1)=e^{-3.5}(1+3.5)
+\]
+
+\section*{\textbf{Q6. Poisson ($\lambda = 3$)}}
+
+$X \sim Poisson(3)$
+
+\subsection*{\textbf{(a) $P(X \ge 3)$}}
+
+\[
+P(X \ge 3)=1-P(0)-P(1)-P(2)
+\]
+
+\[
+=1-e^{-3}\left(1+3+\frac{9}{2}\right)
+\]
+
+\subsection*{\textbf{(b) Conditional Probability}}
+
+\[
+P(X \ge 3 \mid X \ge 1)=\frac{P(X \ge 3)}{P(X \ge 1)}
+\]
+
+\[
+P(X \ge 1)=1-e^{-3}
+\]
+
+\section*{\textbf{Q7. Continuous Random Variable}}
+
+Given PDF
+
+\[
+f_X(x)=\frac{1}{8\pi}\exp\left(-\frac{(x+3)^2}{8}\right)
+\]
+
+Mean = $-3$
+
+Variance = $4$
+
+Standard deviation = $2$
+
+Standardization:
+
+\[
+Z=\frac{X+3}{2}
+\]
+
+1. 
+\[
+P(X \le 0)
+\]
+
+\[
+Z=\frac{0+3}{2}=1.5
+\]
+
+\[
+P(X \le 0)=1-Q(1.5)
+\]
+
+2. 
+\[
+P(X>4)
+\]
+
+\[
+Z=\frac{4+3}{2}=3.5
+\]
+
+\[
+P(X>4)=Q(3.5)
+\]
+
+3. 
+\[
+P(|X+3|<2)
+\]
+
+\[
+|Z|<1
+\]
+
+\[
+=1-2Q(1)
+\]
+
+4. 
+\[
+P(|X-2|>1)
+\]
+
+\[
+P(X>3)+P(X<1)
+\]
+
+Express in Q-function form via standardization.
+
+\section*{\textbf{Q8. Jury Decision}}
+
+Given
+
+12 jurors.
+
+At least 8 must vote guilty.
+
+Each juror independently makes the correct decision with probability $\theta$.
+
+Let:
+
+$X \sim Binomial(12,\theta)$
+
+Correct decision if:
+
+\[
+X \ge 8
+\]
+
+\[
+P(Correct)=\sum_{k=8}^{12} \binom{12}{k}\theta^k(1-\theta)^{12-k}
+\]
+
+\section*{\textbf{Q9. PMF}}
+
+\[
+p(i)=c\frac{\lambda^i}{i!}
+\]
+
+Determination of $c$
+
+\[
+\sum_{i=0}^{\infty} c\frac{\lambda^i}{i!}=1
+\]
+
+\[
+ce^{\lambda}=1
+\]
+
+\[
+c=e^{-\lambda}
+\]
+
+\subsection*{\textbf{(a)}}
+
+\[
+P(X=0)=e^{-\lambda}
+\]
+
+\subsection*{\textbf{(b)}}
+
+\[
+P(X>2)=1-e^{-\lambda}\left(1+\lambda+\frac{\lambda^2}{2}\right)
+\]
+
+\section*{\textbf{Q10. System Reliability}}
+
+Given
+
+$n$ independent components.
+
+Each functions with probability $p$.
+
+System operates if at least half function.
+
+Let:
+
+$X \sim Binomial(n,p)$
+
+\subsection*{\textbf{(a) 5 vs 3 Components}}
+
+5-component works if $X \ge 3$:
+
+\[
+P_5=\sum_{k=3}^{5}\binom{5}{k}p^k(1-p)^{5-k}
+\]
+
+3-component works if $X \ge 2$:
+
+\[
+P_3=\sum_{k=2}^{3}\binom{3}{k}p^k(1-p)^{3-k}
+\]
+
+Compare:
+
+\[
+P_5>P_3
+\]
+
+\subsection*{\textbf{(b) General Case}}
+
+Compare:
+
+\[
+\sum_{k=k+1}^{2k+1}\binom{2k+1}{k}p^k(1-p)^k
+\]
+
+with
+
+\[
+\sum_{k=k}^{2k-1}\binom{2k-1}{k}p^k(1-p)^{k-1}
+\]
+
+This determines when the $(2k+1)$-component system is better than the $(2k-1)$-component system.
+
+End of Lecture 13 Tutorial Scribe
+
+\end{document}
