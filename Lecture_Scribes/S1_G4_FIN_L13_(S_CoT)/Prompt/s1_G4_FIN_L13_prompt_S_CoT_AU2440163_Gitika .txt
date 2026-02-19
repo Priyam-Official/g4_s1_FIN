@@ -1,0 +1,25 @@
+﻿Prompt for lecture scribe:
+
+
+CSE 400: Fundamentals of Probability in Computing
+
+
+Prepare a clear and exam-focused lecture for Lecture 13 (Tutorial). The document should be written so that a student can directly revise it for a closed-book or reading-based exam.
+
+
+Use only the lecture 13 slides/PDF and prescribed textbook extracts. Do not add external explanations, additional intuitions, alternative viewpoints, or new examples. All items included must only come from the supplied material.
+
+
+The scribe should not write question-wise and should not have detailed solutions. Instead, organize the material conceptually by clearly presenting all important definitions, notations, assumptions, distributive properties, theorems, standard results, and key formulas used throughout the tutorial. The focus should be on strengthening conceptual understanding and highlighting the mathematical tools needed to solve these types of problems.
+
+
+Maintain the logical flow of your lecture while consolidating ideas into well-structured, exam-ready notes. Use appropriate mathematical notation and a formal academic tone. Do not leave out any concepts covered in the lecture, and do not simplify beyond what is shown.
+
+
+The final document should be carefully organized, with revision notes that build intense conceptual clarity for exam preparation.
+
+
+Prompt for lecture scribe to latex pdf:
+
+
+Convert a given lecture scribe into a correctly formatted LaTeX document. Keep all words, equations, symbols, and the original order the same. Do not modify, rephrase, or add additional information. Ensure the final output adheres to standard LaTeX formatting conventions while fully preserving the original content.
