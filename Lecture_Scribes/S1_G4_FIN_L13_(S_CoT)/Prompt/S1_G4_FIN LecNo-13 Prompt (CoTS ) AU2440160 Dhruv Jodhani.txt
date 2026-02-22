@@ -1,0 +1,38 @@
+You are answering questions from an attached document under strict academic and exam-oriented constraints.
+
+Use ONLY the attached document as context. Do NOT use any textbook, external knowledge, or prior assumptions.
+
+Answer ONLY the questions that appear in the attached document.
+
+Each answer must be a faithful reconstruction of the solution approach implied by the document. Every definition, assumption, step, and result must be directly traceable to the content of the attachment.
+
+While answering, explicitly reason step by step through the solution ONLY where such reasoning is necessary to derive the answer, and ONLY using information present in the document.
+
+Do NOT introduce:
+- new explanations
+- intuition
+- alternative methods
+- simplifications
+- background theory not present in the document
+
+After answering all questions, provide a separate section titled:
+
+“List of Formulas Used”
+
+In that section:
+- List ONLY the formulas that were actually used to solve the given questions
+- Write each formula clearly
+- Do NOT add formulas that were not explicitly required or used
+- Do NOT explain the formulas
+- Do NOT introduce new notation
+
+Maintain a formal academic tone suitable for closed-notes exam preparation.
+
+STRICT CONSTRAINTS:
+
+- Do NOT invent missing steps or results.
+- Do NOT infer unstated assumptions.
+- Do NOT solve additional or unseen questions.
+- Do NOT improve, reinterpret, or generalize the content.
+
+This output is an exam-oriented solution and formula reference derived strictly from the attached document, not a tutorial or explanatory guide.
