@@ -1,0 +1,272 @@
+\textbackslash documentclass\{article\}
+\textbackslash usepackage\{graphicx\} \% Required for inserting images
+
+\textbackslash begin\{document\} \textbackslash maketitle
+\textbackslash section*\{Q1\}
+
+\textbackslash subsection*\{(a) Number of ways to divide 20 distinct
+dishes into 4 groups of 5 (order of groups does not matter)\}
+
+\textbackslash{[} \textbackslash frac\{20!\}\{(5!)\^{}4 , 4!\}
+\textbackslash{]}
+
+\textbackslash hrule
+
+\textbackslash subsection*\{(b) Probability that all four platters have
+dishes of the same cuisine\}
+
+\textbackslash begin\{itemize\} \textbackslash item Total ways:
+\$\textbackslash left(\textbackslash dfrac\{20!\}\{(5!)\^{}4
+4!\}\textbackslash right)\$ \textbackslash item Favorable ways: each
+cuisine (5 dishes) forms one platter \$\textbackslash rightarrow (4!)\$
+assignments \textbackslash end\{itemize\}
+
+\textbackslash{[} P =
+\textbackslash frac\{4!\}\{\textbackslash dfrac\{20!\}\{(5!)\^{}4 4!\}\}
+= \textbackslash frac\{(4!)\^{}2 (5!)\^{}4\}\{20!\} \textbackslash{]}
+
+\textbackslash hrule
+
+\textbackslash section*\{Q2\}
+
+Passenger arrival time is uniformly distributed on \$({[}0,30{]})\$
+minutes.
+
+Bus arrivals at 0, 15, 30.
+
+\textbackslash subsection*\{(a) Wait less than 5 minutes\}
+
+Total favorable intervals: \$(3 \textbackslash times 5 = 15)\$
+
+\textbackslash{[} P = \textbackslash frac\{15\}\{30\} =
+\textbackslash frac\{1\}\{2\} \textbackslash{]}
+
+\textbackslash hrule
+
+\textbackslash subsection*\{(b) Wait more than 10 minutes\}
+
+Favorable intervals: \$((5,15))\$ and \$((20,30))\$, total length
+\$(10)\$
+
+\textbackslash{[} P = \textbackslash frac\{10\}\{30\} =
+\textbackslash frac\{1\}\{3\} \textbackslash{]}
+
+\textbackslash hrule
+
+\textbackslash section*\{Q3\}
+
+Let
+
+\$(A)\$: arrives late, \$(P(A)=0.15)\$
+
+\$(B)\$: leaves early, \$(P(B)=0.25)\$
+
+\$(P(A \textbackslash cap B)=0.08)\$
+
+We want: \textbackslash{[} P(A\^{}c \textbackslash mid B\^{}c)
+\textbackslash{]}
+
+\textbackslash{[} P(B\^{}c)=1-0.25=0.75 \textbackslash{]}
+
+\textbackslash{[} P(A\^{}c \textbackslash cap
+B\^{}c)=1-(P(A)+P(B)-P(A\textbackslash cap B))=1-(0.15+0.25-0.08)=0.68
+\textbackslash{]}
+
+\textbackslash{[} P(A\^{}c \textbackslash mid
+B\^{}c)=\textbackslash frac\{0.68\}\{0.75\} \textbackslash{]}
+
+\textbackslash hrule
+
+\textbackslash section*\{Q4\}
+
+Poisson with \$(\textbackslash lambda=0.2)\$
+
+\textbackslash subsection*\{(a) 0 errors\}
+
+\textbackslash{[} P(X=0)=e\^{}\{-0.2\} \textbackslash{]}
+
+\textbackslash subsection*\{(b) 2 or more errors\}
+
+\textbackslash{[} P(X\textbackslash ge2)=1-{[}P(0)+P(1){]}
+\textbackslash{]}
+
+\textbackslash{[}
+=1-\textbackslash left(e\^{}\{-0.2\}+0.2e\^{}\{-0.2\}\textbackslash right)
+\textbackslash{]}
+
+\textbackslash hrule
+
+\textbackslash section*\{Q5\}
+
+Poisson with \$(\textbackslash lambda=3.5)\$
+
+\textbackslash subsection*\{(a) At least 2 accidents\}
+
+\textbackslash{[} P(X\textbackslash ge2)=1-{[}P(0)+P(1){]}
+\textbackslash{]}
+
+\textbackslash{[}
+=1-\textbackslash left(e\^{}\{-3.5\}+3.5e\^{}\{-3.5\}\textbackslash right)
+\textbackslash{]}
+
+\textbackslash hrule
+
+\textbackslash subsection*\{(b) At most 1 accident\}
+
+\textbackslash{[} P(X\textbackslash le1)=e\^{}\{-3.5\}+3.5e\^{}\{-3.5\}
+\textbackslash{]}
+
+\textbackslash hrule
+
+\textbackslash section*\{Q6\}
+
+Poisson with \$(\textbackslash lambda=3)\$
+
+\textbackslash subsection*\{(a) \$(P(X\textbackslash ge3))\$\}
+
+\textbackslash{[} P(X\textbackslash ge3)=1-{[}P(0)+P(1)+P(2){]}
+\textbackslash{]}
+
+\textbackslash{[}
+=1-\textbackslash left(e\^{}\{-3\}+3e\^{}\{-3\}+\textbackslash frac\{9\}\{2\}e\^{}\{-3\}\textbackslash right)
+\textbackslash{]}
+
+\textbackslash hrule
+
+\textbackslash subsection*\{(b)
+\$(P(X\textbackslash ge3\textbackslash mid X\textbackslash ge1))\$\}
+
+\textbackslash{[} P(X\textbackslash ge3\textbackslash mid
+X\textbackslash ge1)=\textbackslash frac\{P(X\textbackslash ge3)\}\{1-P(0)\}
+\textbackslash{]}
+
+\textbackslash{[}
+=\textbackslash frac\{1-(e\^{}\{-3\}+3e\^{}\{-3\}+\textbackslash frac\{9\}\{2\}e\^{}\{-3\})\}\{1-e\^{}\{-3\}\}
+\textbackslash{]}
+
+\textbackslash hrule
+
+\textbackslash section*\{Q7\}
+
+Given: \textbackslash{[}
+f\_X(x)=\textbackslash frac\{1\}\{\textbackslash sqrt\{8\textbackslash pi\}\}\textbackslash exp\textbackslash left(-\textbackslash frac\{(x+3)\^{}2\}\{8\}\textbackslash right)
+\textbackslash{]}
+
+Mean \$(=-3)\$, variance \$(=4)\$, standard deviation \$(=2)\$
+
+Express answers using \textbackslash textbf\{Q-functions\}.
+
+\textbackslash begin\{enumerate\} \textbackslash item
+\$(\textbackslash Pr(X\textbackslash le0)=Q\textbackslash left(\textbackslash frac\{-3\}\{2\}\textbackslash right))\$
+\textbackslash item
+\$(\textbackslash Pr(X\textgreater4)=Q\textbackslash left(\textbackslash frac\{7\}\{2\}\textbackslash right))\$
+\textbackslash item
+\$(\textbackslash Pr(\textbar X+3\textbar\textless2)=1-2Q(1))\$
+\textbackslash item
+\$(\textbackslash Pr(\textbar X-2\textbar\textgreater1)=Q\textbackslash left(\textbackslash frac\{3\}\{2\}\textbackslash right)+Q\textbackslash left(\textbackslash frac\{1\}\{2\}\textbackslash right))\$
+\textbackslash end\{enumerate\}
+
+\textbackslash hrule
+
+\textbackslash section*\{Q8\}
+
+Let \$(Y\textbackslash sim
+\textbackslash text\{Binomial\}(12,\textbackslash theta))\$
+
+Correct decision occurs if:
+
+\textbackslash begin\{itemize\} \textbackslash item Guilty
+\textbackslash\& \$\textbackslash ge8\$ vote guilty \textbackslash item
+Innocent \textbackslash\& \$\textbackslash le4\$ vote guilty
+\textbackslash end\{itemize\}
+
+\textbackslash{[}
+P=\textbackslash sum\_\{k=8\}\^{}\{12\}\textbackslash binom\{12\}\{k\}\textbackslash theta\^{}k(1-\textbackslash theta)\^{}\{12-k\}
++
+\textbackslash sum\_\{k=0\}\^{}\{4\}\textbackslash binom\{12\}\{k\}\textbackslash theta\^{}\{12-k\}(1-\textbackslash theta)\^{}k
+\textbackslash{]}
+
+\textbackslash hrule
+
+\textbackslash section*\{Q9\}
+
+Given: \textbackslash{[}
+p(i)=\textbackslash frac\{c\textbackslash lambda\^{}i\}\{i!\}
+\textbackslash{]}
+
+Normalization: \textbackslash{[}
+\textbackslash sum\_\{i=0\}\^{}\textbackslash infty p(i)=1
+\textbackslash Rightarrow c=e\^{}\{-\textbackslash lambda\}
+\textbackslash{]}
+
+\textbackslash hrule
+
+\textbackslash subsection*\{(a)\}
+
+\textbackslash{[} P(X=0)=e\^{}\{-\textbackslash lambda\}
+\textbackslash{]}
+
+\textbackslash hrule
+
+\textbackslash subsection*\{(b)\}
+
+\textbackslash{[} P(X\textgreater2)=1-{[}P(0)+P(1)+P(2){]}
+\textbackslash{]}
+
+\textbackslash{[}
+=1-e\^{}\{-\textbackslash lambda\}\textbackslash left(1+\textbackslash lambda+\textbackslash frac\{\textbackslash lambda\^{}2\}\{2\}\textbackslash right)
+\textbackslash{]}
+
+\textbackslash hrule
+
+\textbackslash section*\{Q10\}
+
+Let system function if \$\textbackslash ge\$ half components work.
+
+\textbackslash subsection*\{(a) Compare 5-component vs 3-component
+systems\}
+
+5-component better when: \textbackslash{[}
+P(X\textbackslash ge3)*\textbackslash\{n=5\textbackslash\}
+\textgreater{}
+P(X\textbackslash ge2)*\textbackslash\{n=3\textbackslash\}
+\textbackslash{]}
+
+Solving yields: \textbackslash{[}
+p\textgreater\textbackslash frac\{1\}\{2\} \textbackslash{]}
+
+\textbackslash hrule
+
+\textbackslash subsection*\{(b) General case\}
+
+A \$((2k+1))\$-component system is better than \$((2k-1))\$-component
+system \textbackslash textbf\{when\} \textbackslash{[}
+p\textgreater\textbackslash frac\{1\}\{2\} \textbackslash{]}
+
+\textbackslash hrule
+
+\textbackslash section*\{List of Formulas Used\}
+
+\textbackslash{[} \textbackslash frac\{n!\}\{(k!)\^{}r r!\}
+\textbackslash{]}
+
+\textbackslash{[} P(A\textbackslash mid
+B)=\textbackslash frac\{P(A\textbackslash cap B)\}\{P(B)\}
+\textbackslash{]}
+
+\textbackslash{[}
+P(X=k)=e\^{}\{-\textbackslash lambda\}\textbackslash frac\{\textbackslash lambda\^{}k\}\{k!\}
+\textbackslash{]}
+
+\textbackslash{[} P(X\textbackslash ge
+k)=1-\textbackslash sum\_\{i=0\}\^{}\{k-1\}P(X=i) \textbackslash{]}
+
+\textbackslash{[}
+P(X=k)=\textbackslash binom\{n\}\{k\}p\^{}k(1-p)\^{}\{n-k\}
+\textbackslash{]}
+
+\textbackslash{[}
+Q(x)=\textbackslash frac\{1\}\{\textbackslash sqrt\{2\textbackslash pi\}\}\textbackslash int\_x\^{}\textbackslash infty
+e\^{}\{-t\^{}2/2\},dt \textbackslash{]}
+
+\textbackslash end\{document\}
