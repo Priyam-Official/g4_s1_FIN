@@ -1,1 +1,1 @@
-# CSE-400-Project-Group-4-Finance-and-Risk-Analysis
+# g4_s1_FIN
