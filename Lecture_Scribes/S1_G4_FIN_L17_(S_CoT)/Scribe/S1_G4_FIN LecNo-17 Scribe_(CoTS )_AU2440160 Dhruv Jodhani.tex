@@ -1,0 +1,575 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\begin{document}
+
+\section*{Lecture Scribe}
+
+\subsection*{CSE400 – Fundamentals of Probability in Computing}
+
+\subsection*{Lecture L15\_16\_17\_18: Joint Random Variables + Joint Distributions + Examples}
+
+---
+
+\section*{Outline}
+
+The lecture outline lists the following topics:
+
+\begin{itemize}
+\item Why Study Joint Random Variables?
+\item Discrete Case
+\begin{itemize}
+\item Joint PMF Table Representation
+\item Example: Rolling Two Dice
+\end{itemize}
+\item Continuous Case
+\begin{itemize}
+\item Geometric Interpretation
+\item Worked Example
+\end{itemize}
+\item Joint Cumulative Distribution Function
+\begin{itemize}
+\item Definition of Joint CDF
+\item Continuous Case
+\item Discrete Case
+\item Properties of the Joint CDF
+\end{itemize}
+\item Comprehensive Example
+\end{itemize}
+
+---
+
+\section*{1. Why Study Joint Random Variables?}
+
+In science and in real life, we are often interested in \textbf{two (or more) random variables at the same time}.
+
+\subsection*{Examples}
+
+\begin{itemize}
+\item Height and weight of giraffes
+\item IQ and birthweight of children
+\item Frequency of exercise and rate of heart disease
+\item Air pollution level and respiratory illness rate
+\item Number of Facebook friends and age of members
+\end{itemize}
+
+\subsection*{Example \#1: Smart Transportation}
+
+In a smart traffic system, two random variables are defined:
+
+\begin{itemize}
+\item $(X =)$ Vehicle Speed
+\item $(Y =)$ Traffic Density
+\end{itemize}
+
+Question stated:
+
+\begin{itemize}
+\item Can speed be high when the traffic density is also high?
+\end{itemize}
+
+Answer shown:
+
+\begin{itemize}
+\item Yes / No
+\end{itemize}
+
+Statement given:
+
+\begin{itemize}
+\item So, $(X)$ and $(Y)$ are correlated random variables.
+\end{itemize}
+
+Real ITS Application (probabilistic analysis):
+
+\begin{itemize}
+\item Adaptive traffic signals
+\item Congestion prediction
+\item Autonomous vehicle routing
+\end{itemize}
+
+\subsection*{Example \#2: Wireless Network Performance}
+
+In a wireless system, two important random variables are:
+
+\begin{itemize}
+\item $(X =)$ Signal-to-Noise Ratio (SNR)
+\item $(Y =)$ Data Throughput
+\end{itemize}
+
+Why Joint Random Variables?
+
+\begin{itemize}
+\item Throughput depends on SNR
+\item Both vary due to fading, interference, and congestion
+\end{itemize}
+
+Question stated:
+
+\begin{itemize}
+\item If SNR is high, will throughput always be high?
+\end{itemize}
+
+Answer shown:
+
+\begin{itemize}
+\item Yes / No
+\end{itemize}
+
+Reasoning stated:
+
+\begin{itemize}
+\item Network Congestion (condition relationships)
+\end{itemize}
+
+Network Applications:
+
+\begin{itemize}
+\item 5G scheduling
+\item adaptive modulation
+\item network planning
+\end{itemize}
+
+\subsection*{Example \#3}
+
+Weather Prediction:
+
+\begin{itemize}
+\item $(X =)$ Rainfall
+\item $(Y =)$ Temperature
+\end{itemize}
+
+Application:
+
+\begin{itemize}
+\item weather forecasting
+\end{itemize}
+
+\subsection*{Example \#4}
+
+Drone Delivery:
+
+\begin{itemize}
+\item $(X =)$ Wind Speed
+\item $(Y =)$ Delivery Time
+\end{itemize}
+
+Applications:
+
+\begin{itemize}
+\item logistics
+\item UAV systems
+\end{itemize}
+
+\subsection*{Example \#5}
+
+\begin{itemize}
+\item Roll two dice $((X \text{ and } Y))$ using phones
+\item $((X + Y = 7 \text{ and } X > Y))$
+\item This requires joint PMF
+\end{itemize}
+
+\subsection*{Statements concluding the section}
+
+In such situations, the random variables have a \textbf{joint distribution} that allows us to compute probabilities of events involving both variables and understand the \textbf{relationship} between the variables.
+
+This is simplest when the variables are \textbf{independent}.
+
+When they are not, we use \textbf{covariance} and \textbf{correlation} as measures of the nature of the dependence between them.
+
+---
+
+\section*{2. Discrete Case – Joint PMF}
+
+\subsection*{Setup}
+
+Suppose $(X)$ and $(Y)$ are discrete random variables.
+
+\[
+X \in \{x_1,x_2,\ldots,x_n\}, \qquad
+Y \in \{y_1,y_2,\ldots,y_m\}
+\]
+
+The ordered pair $((X,Y))$ takes values in the product set:
+
+\[
+\{(x_1,y_1),(x_1,y_2),\ldots,(x_n,y_m)\}
+\]
+
+\subsection*{Definition (Joint PMF)}
+
+\[
+p(x_i,y_j)=P(X=x_i,;Y=y_j)
+\]
+
+This gives the probability of the joint outcome occurring simultaneously.
+
+---
+
+\section*{3. Joint PMF Table Representation}
+
+The joint PMF is organized in a table. The table has rows indexed by values of $(X)$ and columns indexed by values of $(Y)$, with entries $(p(x_i,y_j))$.
+
+\subsection*{Key Properties}
+
+\[
+0 \le p(x_i,y_j) \le 1
+\]
+
+\[
+\sum_{i=1}^{n}\sum_{j=1}^{m} p(x_i,y_j)=1
+\]
+
+---
+
+\section*{4. Example: Rolling Two Dice}
+
+\subsection*{Experiment}
+
+Roll two fair dice.
+
+\subsection*{Let}
+
+\begin{itemize}
+\item $(X =)$ value on the first die
+\item $(T =)$ total (sum) of both dice
+\end{itemize}
+
+Since each outcome $((i,j))$ has probability $\left(\frac{1}{36}\right)$, we construct the joint probability table of $((X,T))$.
+
+\subsection*{Joint Probability Table of $((X,T))$}
+
+\[
+\begin{array}{c|ccccccccccc}
+X \backslash T & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 \\ \hline
+1 & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & 0 & 0 & 0 & 0 & 0 \\
+2 & 0 & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & 0 & 0 & 0 & 0 \\
+3 & 0 & 0 & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & 0 & 0 & 0 \\
+4 & 0 & 0 & 0 & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & 0 & 0 \\
+5 & 0 & 0 & 0 & 0 & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & 0 \\
+6 & 0 & 0 & 0 & 0 & 0 & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & \frac{1}{36} & \frac{1}{36}
+\end{array}
+\]
+
+\subsection*{Observations}
+
+\begin{itemize}
+\item Entries are either $(0)$ or $\left(\frac{1}{36}\right)$
+\item $(X)$ and $(T)$ are \textbf{not independent}
+\end{itemize}
+
+---
+
+\section*{5. Continuous Case – Joint PDF}
+
+The lecture states that the continuous case is analogous to the discrete case:
+
+\begin{itemize}
+\item Discrete values $(\rightarrow)$ Continuous intervals
+\item Joint PMF $(\rightarrow)$ Joint PDF
+\item Sums $(\rightarrow)$ Double integrals
+\end{itemize}
+
+If
+
+\[
+X \in [a,b], \qquad Y \in [c,d],
+\]
+
+then the pair $((X,Y))$ takes values in the product region:
+
+\[
+[a,b]\times[c,d]
+\]
+
+\subsection*{Definition (Joint PDF)}
+
+A function $(f(x,y))$ is called the \textbf{joint probability density function} of $(X)$ and $(Y)$ if
+
+\[
+P\big((X,Y)\text{ lies in a small rectangle of area }dx,dy\big)\approx f(x,y),dx,dy
+\]
+
+\subsection*{Geometric Interpretation}
+
+The region shown is the rectangle $([a,b]\times[c,d])$, and inside it a small rectangle of dimensions $(dx)$ and $(dy)$ is marked with probability
+
+\[
+\text{Prob.} = f(x,y),dx,dy
+\]
+
+\subsection*{Key Properties}
+
+\[
+f(x,y)\ge 0
+\]
+
+\[
+\int_c^d \int_a^b f(x,y),dx,dy = 1
+\]
+
+Additional statement given:
+
+\begin{itemize}
+\item The joint PDF $(f(x,y))$ may take values greater than $(1)$.
+\item It is a probability density, not a probability.
+\end{itemize}
+
+---
+
+\section*{6. Worked Example}
+
+\subsection*{Given}
+
+\[
+f(x,y)=4xy, \qquad 0 \le x \le 1,; 0 \le y \le 1
+\]
+
+\subsection*{Tasks}
+
+\begin{enumerate}
+\item Show that $(f(x,y))$ is a valid joint PDF.
+\item Visualize the event
+\[
+A=\{X<0.5,;Y>0.5\}
+\]
+\item Compute $(P(A))$
+\end{enumerate}
+
+Jointly, $((X,Y))$ takes values in the \textbf{unit square}
+
+\[
+[0,1]^2
+\]
+
+The figure shows the region $(A)$ inside the unit square corresponding to $(X<0.5)$ and $(Y>0.5)$.
+
+\subsection*{Example Solution}
+
+\subsubsection*{Step 1: Check Validity (Normalization)}
+
+\[
+\int_0^1 \int_0^1 4xy,dx,dy
+\]
+
+\[
+===========================
+\]
+
+\[
+\# \int_0^1 \left(\int_0^1 4xy,dx\right)dy
+\]
+
+\[
+\# \int_0^1 2y,dy
+\]
+
+\[
+[y^2]_0^1
+=1
+\]
+
+Hence $(f(x,y)\ge 0)$ and total probability is $(1)$. So it is a \textbf{valid joint PDF}.
+
+\subsubsection*{Step 2: Compute $(P(A))$}
+
+\[
+P(A)=\int_0^{0.5}\int_{0.5}^{1} 4xy,dy,dx
+\]
+
+\[
+=\int_0^{0.5}[2xy^2]_{0.5}^{1},dx
+\]
+
+\[
+=\int_0^{0.5}2x(1-0.25),dx
+\]
+
+\[
+=\int_0^{0.5}\frac{3}{2}x,dx
+\]
+
+\[
+=\frac{3}{16}
+\]
+
+---
+
+\section*{7. Joint Cumulative Distribution Function (Joint CDF)}
+
+Suppose $(X)$ and $(Y)$ are jointly distributed random variables.
+
+We use the notation:
+
+\[
+X \le x,; Y \le y
+\]
+
+to mean the event:
+
+\[
+\{X \le x \text{ and } Y \le y\}
+\]
+
+\subsection*{Definition}
+
+The joint cumulative distribution function is defined as
+
+\[
+F(x,y)=P(X \le x,; Y \le y)
+\]
+
+---
+
+\section*{8. Joint CDF – Continuous Case}
+
+If $(X)$ and $(Y)$ are continuous random variables with joint density $(f(x,y))$ over $([a,b]\times[c,d])$, then the joint CDF is obtained by integrating the density:
+
+\[
+F(x,y)=\int_c^y \int_a^x f(u,v),du,dv
+\]
+
+\subsection*{Recovering the Joint PDF}
+
+Since there are two variables, we use partial derivatives:
+
+\[
+f(x,y)=\frac{\partial^2}{\partial x \partial y}F(x,y)
+\]
+
+---
+
+\section*{9. Joint CDF – Discrete Case}
+
+If $(X)$ and $(Y)$ are discrete random variables with joint PMF $(p(x_i,y_j))$, then the joint CDF is obtained by summing probabilities:
+
+\[
+F(x,y)=\sum_{x_i\le x}\sum_{y_j\le y} p(x_i,y_j)
+\]
+
+\subsection*{Interpretation}
+
+\begin{itemize}
+\item Add all probabilities in the table
+\item For rows with $(x_i \le x)$
+\item And columns with $(y_j \le y)$
+\end{itemize}
+
+---
+
+\section*{10. Properties of the Joint CDF}
+
+The joint CDF $(F(x,y))$ of $(X)$ and $(Y)$ must satisfy several properties.
+
+\subsection*{Property 1}
+
+\[
+F(x,y)\text{ is non-decreasing.}
+\]
+
+If $(x)$ or $(y)$ increase, then $(F(x,y))$ must stay constant or increase.
+
+\subsection*{Property 2}
+
+\[
+F(x,y)=0 \text{ at the lower-left of the joint range.}
+\]
+
+If the lower-left corner is
+
+\[
+(-\infty,-\infty),
+\]
+
+then
+
+\[
+\lim_{(x,y)\to(-\infty,-\infty)}F(x,y)=0.
+\]
+
+\subsection*{Property 3}
+
+\[
+F(x,y)=1 \text{ at the upper-right of the joint range.}
+\]
+
+If the upper-right corner is
+
+\[
+(\infty,\infty),
+\]
+
+then
+
+\[
+\lim_{(x,y)\to(\infty,\infty)}F(x,y)=1.
+\]
+
+---
+
+\section*{11. End Slide}
+
+The final slide contains:
+
+\[
+\text{Thank You!}
+\]
+
+\end{document}
+
+\end{document}
