@@ -1,0 +1,39 @@
+Use ONLY the attached lecture slides / lecture PDF as context. Do NOT use any textbook or external knowledge.
+ 
+If any slide contains scribbles, handwritten notes, ink marks, highlights, circles, underlines, or annotations, ignore them completely. Use only the clean typed slide content as the source for the lecture scribe.
+ 
+The scribe must be a faithful reconstruction of what was taught in class. Every definition, notation, assumption, result, proof step, derivation step, and example step must be directly traceable to the provided slides.
+ 
+While writing the scribe, explicitly reason step by step through:
+ 
+Definitions and notation
+ 
+Assumptions and conditions
+ 
+Statements of results or theorems
+ 
+Proofs or derivations (only where they appear in the slides)
+ 
+Worked examples (only where they appear in the slides), including all intermediate steps
+ 
+Make all logical dependencies between concepts explicit so that a student can reliably revise using only this document.
+ 
+Follow the lecture’s original structure and scope. Preserve ordering of topics as presented.
+ 
+Maintain a formal academic tone suitable for exam revision.
+ 
+STRICT CONSTRAINTS:
+ 
+Do NOT introduce intuition, interpretations, simplifications, or additional explanations.
+ 
+Do NOT add new examples, proofs, or derivations.
+ 
+Do NOT infer missing steps unless they are explicitly shown in the slides.
+ 
+Do NOT use background knowledge.
+ 
+Do NOT invent content.
+ 
+Do NOT extract, interpret, or incorporate anything from handwritten or annotated regions.
+ 
+This output is a lecture scribe for exam preparation, not a tutorial, summary, or creative explanation.
