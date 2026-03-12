@@ -1,0 +1,391 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{array}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\begin{document}
+
+\title{CSE 400: Fundamentals of Probability in Computing}
+\author{}
+\date{}
+\maketitle
+
+\section*{Lecture Scribe — Joint Random Variables}
+
+\hrule
+\vspace{0.5cm}
+
+\section*{Why Study Joint Random Variables}
+
+A random variable assigns a numerical value to the outcome of a random experiment. In many situations, more than one quantity arising from the same experiment is random. In such cases, a single random variable does not fully describe the outcome of the experiment.
+
+To represent multiple random quantities simultaneously, two or more random variables are defined and studied together. The study of these variables together is carried out using \textbf{joint random variables}. Joint random variables allow probabilities to be assigned to combinations of outcomes of multiple random variables.
+
+\hrule
+\vspace{0.5cm}
+
+\section*{Discrete Case}
+
+\subsection*{Joint PMF Table Representation}
+
+Let $(X)$ and $(Y)$ be two discrete random variables. The \textbf{joint probability mass function (joint PMF)} of $(X)$ and $(Y)$ is defined as
+
+\[
+p_{X,Y}(x,y) = P(X = x, Y = y)
+\]
+
+The joint PMF gives the probability that the random variable $(X)$ takes the value $(x)$ and the random variable $(Y)$ takes the value $(y)$ simultaneously.
+
+The joint PMF can be represented in a table form. In such a table:
+
+\begin{itemize}
+\item Rows correspond to possible values of $(X)$.
+\item Columns correspond to possible values of $(Y)$.
+\item Each entry represents the probability $(P(X=x, Y=y))$.
+\end{itemize}
+
+The probabilities must satisfy the normalization condition
+
+\[
+\sum_x \sum_y p_{X,Y}(x,y) = 1
+\]
+
+where the summations are taken over all possible values of $(X)$ and $(Y)$.
+
+\hrule
+\vspace{0.5cm}
+
+\subsection*{Example: Rolling Two Dice}
+
+Consider an experiment in which two fair six-sided dice are rolled.
+
+Define the random variables
+
+\[
+X = \text{Outcome of the first die}
+\]
+
+\[
+Y = \text{Outcome of the second die}
+\]
+
+Each die can take the values
+
+\[
+1,2,3,4,5,6
+\]
+
+The total number of ordered outcomes is
+
+\[
+6 \times 6 = 36
+\]
+
+Because the dice are fair, each ordered pair $((x,y))$ occurs with probability
+
+\[
+P(X=x, Y=y) = \frac{1}{36}
+\]
+
+\subsection*{Joint PMF Table}
+
+\[
+\begin{array}{c|cccccc}
+(X \backslash Y) & 1 & 2 & 3 & 4 & 5 & 6 \\
+\hline
+1 & (1/36) & (1/36) & (1/36) & (1/36) & (1/36) & (1/36) \\
+2 & (1/36) & (1/36) & (1/36) & (1/36) & (1/36) & (1/36) \\
+3 & (1/36) & (1/36) & (1/36) & (1/36) & (1/36) & (1/36) \\
+4 & (1/36) & (1/36) & (1/36) & (1/36) & (1/36) & (1/36) \\
+5 & (1/36) & (1/36) & (1/36) & (1/36) & (1/36) & (1/36) \\
+6 & (1/36) & (1/36) & (1/36) & (1/36) & (1/36) & (1/36) \\
+\end{array}
+\]
+
+\subsection*{Verification of Total Probability}
+
+The sum of all entries must equal 1.
+
+\[
+\sum_{x=1}^{6}\sum_{y=1}^{6} P(X=x,Y=y)
+\]
+
+There are 36 entries and each equals $(1/36)$.
+
+\[
+36 \times \frac{1}{36} = 1
+\]
+
+Thus the normalization condition is satisfied.
+
+\hrule
+\vspace{0.5cm}
+
+\section*{Continuous Case}
+
+For continuous random variables $(X)$ and $(Y)$, the joint distribution is described using a \textbf{joint probability density function (joint PDF)}.
+
+The joint PDF is denoted as
+
+\[
+f_{X,Y}(x,y)
+\]
+
+The probability that the pair $((X,Y))$ lies within a region $(R)$ is given by
+
+\[
+P((X,Y) \in R) =
+\int\int_R f_{X,Y}(x,y),dx,dy
+\]
+
+The joint PDF must satisfy
+
+\[
+\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f_{X,Y}(x,y),dx,dy = 1
+\]
+
+\subsection*{Geometric Interpretation}
+
+In the continuous case, the joint PDF can be interpreted geometrically.
+
+The function $(f_{X,Y}(x,y))$ forms a surface above the $(xy)$-plane. The probability that the random pair $((X,Y))$ lies in a region $(R)$ is equal to the \textbf{volume under the surface $(f_{X,Y}(x,y))$} above that region.
+
+Thus,
+
+\[
+P((X,Y)\in R)
+\]
+
+corresponds to the volume under the surface above region $(R)$.
+
+\subsection*{Worked Example}
+
+Consider the joint probability density function
+
+\[
+f_{X,Y}(x,y)=
+\begin{cases}
+c & 0 \le x \le 1,; 0 \le y \le 1 \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+\subsubsection*{Step 1: Determine $(c)$}
+
+The total probability must equal 1.
+
+\[
+\int_0^1 \int_0^1 c,dx,dy = 1
+\]
+
+First integrate with respect to $(x)$:
+
+\[
+\int_0^1 c,dx = c(1-0) = c
+\]
+
+Then integrate with respect to $(y)$:
+
+\[
+\int_0^1 c,dy = c(1-0) = c
+\]
+
+Thus,
+
+\[
+c = 1
+\]
+
+Therefore,
+
+\[
+f_{X,Y}(x,y)=
+\begin{cases}
+1 & 0 \le x \le 1,; 0 \le y \le 1 \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+\hrule
+\vspace{0.5cm}
+
+\section*{Joint Cumulative Distribution Function}
+
+\subsection*{Definition of Joint CDF}
+
+For random variables $(X)$ and $(Y)$, the \textbf{joint cumulative distribution function (joint CDF)} is defined as
+
+\[
+F_{X,Y}(x,y) = P(X \le x, Y \le y)
+\]
+
+The joint CDF gives the probability that the random variable $(X)$ is less than or equal to $(x)$ and the random variable $(Y)$ is less than or equal to $(y)$.
+
+\subsection*{Continuous Case}
+
+If $(X)$ and $(Y)$ are continuous random variables with joint PDF $(f_{X,Y}(x,y))$, the joint CDF is
+
+\[
+F_{X,Y}(x,y)
+============
+
+\int_{-\infty}^{x}
+\int_{-\infty}^{y}
+f_{X,Y}(u,v),dv,du
+\]
+
+This expression accumulates the probability density over the region
+
+\[
+u \le x, \quad v \le y
+\]
+
+\subsection*{Discrete Case}
+
+If $(X)$ and $(Y)$ are discrete random variables with joint PMF $(p_{X,Y}(x,y))$, the joint CDF is
+
+\[
+F_{X,Y}(x,y)
+============
+
+\sum_{u \le x}
+\sum_{v \le y}
+p_{X,Y}(u,v)
+\]
+
+The sums include all values satisfying
+
+\[
+u \le x,\quad v \le y
+\]
+
+\subsection*{Properties of the Joint CDF}
+
+\subsubsection*{Property 1: Range}
+
+\[
+0 \le F_{X,Y}(x,y) \le 1
+\]
+
+\subsubsection*{Property 2: Nondecreasing Property}
+
+The joint CDF is nondecreasing in each argument.
+
+If
+
+\[
+x_1 \le x_2
+\]
+
+then
+
+\[
+F_{X,Y}(x_1,y) \le F_{X,Y}(x_2,y)
+\]
+
+If
+
+\[
+y_1 \le y_2
+\]
+
+then
+
+\[
+F_{X,Y}(x,y_1) \le F_{X,Y}(x,y_2)
+\]
+
+\subsubsection*{Property 3: Limits}
+
+\[
+\lim_{x \to -\infty} F_{X,Y}(x,y) = 0
+\]
+
+\[
+\lim_{y \to -\infty} F_{X,Y}(x,y) = 0
+\]
+
+\[
+\lim_{x \to \infty, y \to \infty} F_{X,Y}(x,y) = 1
+\]
+
+\hrule
+\vspace{0.5cm}
+
+\section*{Comprehensive Example}
+
+Consider the experiment of rolling two fair six-sided dice.
+
+Define
+
+\[
+X = \text{Outcome of the first die}
+\]
+
+\[
+Y = \text{Outcome of the second die}
+\]
+
+Each ordered pair $((x,y))$ occurs with probability
+
+\[
+P(X=x,Y=y)=\frac{1}{36}
+\]
+
+The joint cumulative distribution function is
+
+\[
+F_{X,Y}(x,y)=P(X \le x, Y \le y)
+\]
+
+\subsection*{Compute $(F_{X,Y}(2,3))$}
+
+\[
+F_{X,Y}(2,3)=P(X \le 2, Y \le 3)
+\]
+
+Possible values satisfying the conditions:
+
+\[
+X = 1,2
+\]
+
+\[
+Y = 1,2,3
+\]
+
+The number of ordered pairs is
+
+\[
+2 \times 3 = 6
+\]
+
+Each pair has probability
+
+\[
+\frac{1}{36}
+\]
+
+Thus,
+
+\[
+F_{X,Y}(2,3)
+============
+
+6 \times \frac{1}{36}
+
+\frac{6}{36}
+
+\frac{1}{6}
+\]
+
+\section*{Result}
+
+\[
+F_{X,Y}(2,3) = \frac{1}{6}
+\]
+
+This value represents the probability that the outcome of the first die is less than or equal to 2 and the outcome of the second die is less than or equal to 3.
+
+\end{document}

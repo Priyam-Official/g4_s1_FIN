@@ -1,0 +1,26 @@
+PROMPT 1 FOR THE SCRIBE
+
+Generate a lecture scribe intended strictly as exam-oriented reference material for the course CSE 400: Fundamentals of Probability in Computing. The scribe must be a faithful and exam-ready reconstruction of the lecture and must be written so that a student can rely on it as the sole reference while preparing for a closed-notes or reading-based examination.
+The content provided below is the complete and only authoritative context for this task. You must use only this context and nothing else. You must not infer missing steps, assume unstated results, introduce external knowledge, or add any intuition, summaries, or explanations that are not explicitly present in the lecture. Every statement included in the scribe must be directly traceable to the lecture material.
+While writing the scribe, go through the lecture step by step, exactly as it appears. All definitions and notation must be included. All assumptions and conditions must be clearly stated. All propositions, formulas, and theorems must be written exactly as presented. If the lecture contains any proofs or derivations, they must be written in full. Every question, problem, and example appearing in the lecture must be completely solved. No example, question, or computation may be left unanswered or partially worked. All intermediate steps must be written explicitly whenever they appear in the lecture. All reasoning must come only from the provided lecture context.
+The writing must maintain a formal academic tone suitable for exam revision and must follow the same order and logical flow as the lecture slides. Correctness, completeness, and faithfulness to the lecture are more important than stylistic elegance.
+The final output must be a single, continuous lecture scribe document in which every question and example from the lecture is explicitly and completely solved, allowing a student to revise the entire lecture without any missing steps.
+
+❑ Why Study Joint Random Variables? 
+❑ Discrete Case
+• Joint PMF Table Representation 
+• Example: Rolling Two Dice 
+❑ Continuous Case
+• Geometric Interpretation 
+• Worked Example 
+❑ Joint Cumulative Distribution Function
+• Definition of Joint CDF 
+• Continuous Case 
+• Discrete Case 
+• Properties of the Joint CDF 
+❑ Comprehensive Example
+
+
+PROMPT 2 FOR THE SCRIBE TO LATEX TRANSITION
+
+Generate a LaTeX code based on the given Lecture Scribe. Do not change any equation or word formation initially in the Scribe and also do not include any other external information or concepts which are not already in the Scribe.
