@@ -1,0 +1,78 @@
+Prompt for Scribe:
+Generate a lecture scribe for Lecture L17 of CSE400 – Fundamentals of Probability in Computing.
+
+The scribe must function as formal exam-preparation reference material, allowing a student to revise the lecture accurately using only this document.
+
+Use only the provided context (lecture slides and any attached textbook excerpts). Do not introduce new explanations, examples, assumptions, or results that are not present in the provided materials.
+
+While writing the lecture scribe, reason step-by-step through the lecture content and include the reasoning in the scribe so that the logical development of the lecture is clear for revision. All reasoning must be derived strictly from the provided context.
+
+Follow these requirements:
+
+Maintain a formal academic tone suitable for exam preparation.
+
+Follow the structure and logical order of the lecture as presented in the provided materials.
+
+Clearly present:
+
+Definitions and notation
+
+Assumptions and conditions
+
+Statements of results or properties
+
+Proofs or derivations (step-by-step when present in the lecture)
+
+Worked examples with intermediate steps exactly as shown in the lecture
+
+Ensure that the logical reasoning behind definitions, derivations, and examples is explicitly explained step-by-step, but only using information present in the provided context.
+
+Organize the scribe using clear sections and headings reflecting the lecture structure.
+
+Preserve mathematical notation and formulas accurately.
+
+Do not invent additional explanations, examples, proofs, or interpretations that are not present in the lecture material.
+
+The final output should be a complete, well-structured lecture scribe that faithfully reconstructs the lecture content and reasoning for reliable exam revision.
+
+
+
+
+Prompt For Latex Code:
+Convert the following lecture scribe into LaTeX source code.
+
+Important constraints:
+
+The LaTeX document must preserve the exact content of the lecture scribe without any modifications.
+
+Do not add, remove, rephrase, summarize, or expand any text.
+
+Maintain the exact wording, structure, and mathematical expressions from the original scribe.
+
+Only perform formatting changes necessary to represent the content correctly in LaTeX.
+
+Organize the document using appropriate LaTeX structure such as:
+
+\section{}
+
+\subsection{}
+
+\begin{align} or \begin{equation} for mathematical expressions
+
+itemize or enumerate for lists when required
+
+Ensure all mathematical expressions are written in proper LaTeX math syntax.
+
+Produce a complete compilable LaTeX document, including:
+
+\documentclass{article}
+
+necessary packages such as amsmath, amssymb
+
+\begin{document} and \end{document}.
+
+Return only the LaTeX source code of the full document.
+
+Here is the lecture scribe to convert:
+
+
