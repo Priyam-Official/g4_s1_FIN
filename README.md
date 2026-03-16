@@ -1,5 +1,13 @@
 # g4_s1_FIN
 ## CSE-400-Project-Group-4-Finance-and-Risk-Analysis
+
+# Milestone 4 – Work Distribution
+
+- **GitHub Manager / Concept Map:** Gitika Agarwal  
+- **Video:** Massom Choksi, Jinay Shah  
+- **Scribe:** Priyam Modi, Dhruv Jodhani
+
+
 ```
 📦CSE-400-Project-Group-4-Finance-and-Risk-Analysis
  ┣ 📂base_paper
