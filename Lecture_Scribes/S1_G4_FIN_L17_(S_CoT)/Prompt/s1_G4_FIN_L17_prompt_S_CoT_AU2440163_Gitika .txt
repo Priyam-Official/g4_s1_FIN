@@ -1,0 +1,7 @@
+PROMPT 1  FOR THE SCRIBE:
+Generate a complete lecture scribe for exam preparation using only the provided lecture (15 to 17) PDF and slide images. Include all definitions, notation, formulas, derivations, results, remarks, and worked examples shown in the slides. Follow the same order and structure as the lecture. Please don't add new explanations, assumptions, summaries, or extra examples that aren’t in the material. Do not use outside sources. Only use what is written in this PDF and keep it focused for exams.
+
+PROMPT 2 FOR THE SCRIBE TO LATEX TRANSITION:
+
+
+convert this lecture scribe into LaTeX. Keep all equations exactly the same, don’t add anything new
