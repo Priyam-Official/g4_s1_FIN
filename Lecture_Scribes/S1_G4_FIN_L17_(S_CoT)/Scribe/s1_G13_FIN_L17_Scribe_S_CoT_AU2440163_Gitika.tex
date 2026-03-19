@@ -1,0 +1,232 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{CSE400 -- Fundamentals of Probability in Computing}
+\author{Instructor: Dhaval Patel, PhD}
+\date{March 10, 2026}
+
+\begin{document}
+
+\maketitle
+
+\section*{Lecture L15--L17: Joint Random Variables + Joint Distributions + Examples}
+
+\section*{1. Outline}
+
+\begin{itemize}
+    \item Why Study Joint Random Variables?
+    \item Discrete Case
+    \begin{itemize}
+        \item Joint PMF Table Representation
+        \item Example: Rolling Two Dice
+    \end{itemize}
+    \item Continuous Case
+    \begin{itemize}
+        \item Geometric Interpretation
+        \item Worked Example
+    \end{itemize}
+    \item Joint Cumulative Distribution Function
+    \begin{itemize}
+        \item Definition of Joint CDF
+        \item Continuous Case
+        \item Discrete Case
+        \item Properties of the Joint CDF
+    \end{itemize}
+    \item Comprehensive Example
+\end{itemize}
+
+\section*{2. Why Study Joint Random Variables?}
+
+\subsection*{Example \#1: Smart Transportation}
+
+Two random variables:
+\begin{itemize}
+    \item $X =$ Vehicle Speed
+    \item $Y =$ Traffic Density
+\end{itemize}
+
+\textbf{Question:} Can speed be high when traffic density is also high?\\
+\textbf{Answer:} Yes / No
+
+\[
+X \text{ and } Y \text{ are correlated random variables}
+\]
+
+\textbf{Applications:}
+\begin{itemize}
+    \item Adaptive traffic signals
+    \item Congestion prediction
+    \item Autonomous vehicle routing
+\end{itemize}
+
+\subsection*{Example \#2: Wireless Network Performance}
+
+Two random variables:
+\begin{itemize}
+    \item $X =$ Signal-to-Noise Ratio (SNR)
+    \item $Y =$ Data Throughput
+\end{itemize}
+
+\textbf{Why Joint RVs?}\\
+Throughput depends on SNR (both vary due to fading, interference, congestion)
+
+\textbf{Question:} If SNR is high, will throughput always be high?\\
+\textbf{Answer:} Yes / No
+
+\textbf{Reason:} Network congestion (conditional relationships)
+
+\textbf{Applications:}
+\begin{itemize}
+    \item 5G scheduling
+    \item Adaptive modulation
+    \item Network planning
+\end{itemize}
+
+\subsection*{General Observation}
+
+In science and real life, we are often interested in more than one random variable simultaneously.
+
+\subsection*{Example \#3: Weather Prediction}
+
+\begin{itemize}
+    \item $X =$ Rainfall
+    \item $Y =$ Temperature
+\end{itemize}
+
+Application: Weather forecasting
+
+\subsection*{Example \#4: Drone Delivery}
+
+\begin{itemize}
+    \item $X =$ Wind Speed
+    \item $Y =$ Delivery Time
+\end{itemize}
+
+Application: Logistics and UAV systems
+
+\subsection*{Example \#5: Rolling Two Dice}
+
+\begin{itemize}
+    \item $(X, Y) =$ outcomes of dice
+\end{itemize}
+
+Conditions:
+\begin{itemize}
+    \item $X + Y = 7$
+    \item $X > Y$
+\end{itemize}
+
+Requires joint PMF
+
+\section*{3. Discrete Case -- Joint PMF}
+
+(Title slides introducing concept)
+
+\section*{4. Joint PMF Table Representation}
+
+Joint PMF is represented using a table:
+\begin{itemize}
+    \item Rows $\rightarrow$ values of one random variable
+    \item Columns $\rightarrow$ values of another random variable
+    \item Each cell $\rightarrow$ joint probability
+\end{itemize}
+
+\section*{5. Example: Rolling Two Dice}
+
+\begin{itemize}
+    \item Two dice rolled
+    \item Define:
+    \begin{itemize}
+        \item $X =$ outcome of first die
+        \item $Y =$ outcome of second die
+    \end{itemize}
+\end{itemize}
+
+Joint PMF table constructed for all pairs $(x, y)$
+
+(All possible combinations considered)
+
+\section*{6. Continuous Case -- Joint PDF}
+
+(Series of slides introducing concept)
+
+\subsection*{Joint PDF (Continuous Case)}
+
+\begin{itemize}
+    \item Used when random variables are continuous
+    \item Defined over a region in the plane
+    \item Represents density instead of probability
+\end{itemize}
+
+\subsection*{Geometric Interpretation}
+
+\begin{itemize}
+    \item Probability corresponds to area under surface
+    \item Region in $(x, y)$-plane defines probability
+\end{itemize}
+
+\section*{7. Example (Continuous Case)}
+
+(Problem introduced)
+
+\subsection*{Example Solution}
+
+(Steps shown across slides)
+
+\begin{itemize}
+    \item Define region
+    \item Integrate joint PDF over region
+    \item Compute required probability
+\end{itemize}
+
+\section*{8. Joint Cumulative Distribution Function (Joint CDF)}
+
+\subsection*{Definition}
+
+Joint CDF:
+\[
+F_{X,Y}(x,y) = P(X \le x, Y \le y)
+\]
+
+\section*{9. Joint CDF -- Continuous Case}
+
+\begin{itemize}
+    \item Computed using double integration over region:
+    \begin{itemize}
+        \item From $-\infty$ to $x$
+        \item From $-\infty$ to $y$
+    \end{itemize}
+\end{itemize}
+
+\section*{10. Joint CDF -- Discrete Case}
+
+\begin{itemize}
+    \item Computed using summation:
+    \begin{itemize}
+        \item Over all values satisfying:
+        \[
+        X \le x, \quad Y \le y
+        \]
+    \end{itemize}
+\end{itemize}
+
+\section*{11. Properties of the Joint CDF}
+
+\begin{itemize}
+    \item Non-decreasing function
+    \item Limits:
+    \begin{itemize}
+        \item $F_{X,Y}(-\infty, -\infty) = 0$
+        \item $F_{X,Y}(\infty, \infty) = 1$
+    \end{itemize}
+    \item Right-continuous
+    \item Defines probabilities over regions
+\end{itemize}
+
+\section*{12. End of Lecture}
+
+\textbf{Thank You}
+
+\end{document}
