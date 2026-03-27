@@ -1,0 +1,243 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+
+\title{CSE 400: Fundamentals of Probability in Computing\\
+Lecture Scribe — Tail Bounds and Inequalities}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Tail and Motivation of Tail Bound}
+
+A tail bound is a bound on the probability that a random variable takes values far from a specified value.
+
+The motivation of tail bounds is to quantify the probability of rare events, particularly events where the random variable deviates significantly from its expectation.
+
+\section*{Markov’s Inequality}
+
+\subsection*{Definition}
+
+Let $X$ be a non-negative random variable. For any $a > 0$:
+
+\[
+P(X \ge a) \le \frac{E[X]}{a}
+\]
+
+\subsection*{Proof}
+
+Since $X \ge 0$, we write:
+
+\[
+E[X] = \sum_x x \cdot P(X = x)
+\]
+
+Split the summation into two parts:
+
+\[
+E[X] =
+\sum_{x < a} x \cdot P(X = x) +
+\sum_{x \ge a} x \cdot P(X = x)
+\]
+
+For all $x \ge a$, we have $x \ge a$, hence:
+
+\[
+\sum_{x \ge a} x \cdot P(X = x) \ge
+\sum_{x \ge a} a \cdot P(X = x)
+= a \cdot \sum_{x \ge a} P(X = x)
+= a \cdot P(X \ge a)
+\]
+
+Thus:
+
+\[
+E[X] \ge a \cdot P(X \ge a)
+\]
+
+Dividing both sides by $a$:
+
+\[
+P(X \ge a) \le \frac{E[X]}{a}
+\]
+
+\subsection*{Example}
+
+Let $E[X] = 10$. Find an upper bound for $P(X \ge 20)$.
+
+\[
+P(X \ge 20) \le \frac{10}{20} = \frac{1}{2}
+\]
+
+\section*{Chebyshev’s Inequality}
+
+\subsection*{Definition}
+
+Let $X$ be a random variable with mean $\mu = E[X]$ and variance $\sigma^2 = Var(X)$. For any $k > 0$:
+
+\[
+P(|X - \mu| \ge k) \le \frac{\sigma^2}{k^2}
+\]
+
+\subsection*{Proof}
+
+Define:
+
+\[
+Y = (X - \mu)^2
+\]
+
+Since $Y \ge 0$, apply Markov’s inequality:
+
+\[
+P(Y \ge k^2) \le \frac{E[Y]}{k^2}
+\]
+
+Observe:
+
+\[
+P(Y \ge k^2) = P((X - \mu)^2 \ge k^2)
+= P(|X - \mu| \ge k)
+\]
+
+Also:
+
+\[
+E[Y] = E[(X - \mu)^2] = \sigma^2
+\]
+
+Thus:
+
+\[
+P(|X - \mu| \ge k) \le \frac{\sigma^2}{k^2}
+\]
+
+\subsection*{Example}
+
+Let $\mu = 5$, $\sigma^2 = 4$. Find $P(|X - 5| \ge 2)$.
+
+\[
+P(|X - 5| \ge 2) \le \frac{4}{2^2} = \frac{4}{4} = 1
+\]
+
+\section*{Chernoff Bound and Poisson Tail}
+
+\subsection*{Definition}
+
+For any $t > 0$:
+
+\[
+P(X \ge a) = P(e^{tX} \ge e^{ta})
+\]
+
+Applying Markov’s inequality:
+
+\[
+P(e^{tX} \ge e^{ta}) \le \frac{E[e^{tX}]}{e^{ta}}
+\]
+
+Thus:
+
+\[
+P(X \ge a) \le \frac{E[e^{tX}]}{e^{ta}}
+\]
+
+\subsection*{Proof}
+
+For $t > 0$, the exponential function is monotonic. Therefore:
+
+\[
+P(X \ge a) = P(e^{tX} \ge e^{ta})
+\]
+
+Applying Markov’s inequality:
+
+\[
+P(e^{tX} \ge e^{ta}) \le \frac{E[e^{tX}]}{e^{ta}}
+\]
+
+Thus:
+
+\[
+P(X \ge a) \le \frac{E[e^{tX}]}{e^{ta}}
+\]
+
+\subsection*{Example (Poisson Tail)}
+
+Let $X \sim Poisson(\lambda)$.
+
+\[
+E[e^{tX}] = e^{\lambda(e^t - 1)}
+\]
+
+Applying Chernoff bound:
+
+\[
+P(X \ge a) \le \frac{e^{\lambda(e^t - 1)}}{e^{ta}}
+= \exp(\lambda(e^t - 1) - ta)
+\]
+
+\section*{Jensen’s Inequality}
+
+\subsection*{Convex Functions}
+
+A function $f$ is convex if for any $x, y$ and $0 \le \theta \le 1$:
+
+\[
+f(\theta x + (1 - \theta)y) \le \theta f(x) + (1 - \theta) f(y)
+\]
+
+\subsection*{Statement}
+
+Let $X$ be a random variable and $f$ be a convex function. Then:
+
+\[
+f(E[X]) \le E[f(X)]
+\]
+
+\subsection*{Proof}
+
+Let $X$ take values $x_1, x_2, \ldots, x_n$ with probabilities $p_1, p_2, \ldots, p_n$, where:
+
+\[
+\sum_{i=1}^n p_i = 1
+\]
+
+Then:
+
+\[
+E[X] = \sum_{i=1}^n p_i x_i
+\]
+
+By convexity:
+
+\[
+f\left(\sum_{i=1}^n p_i x_i\right) \le \sum_{i=1}^n p_i f(x_i)
+\]
+
+Thus:
+
+\[
+f(E[X]) \le E[f(X)]
+\]
+
+\subsection*{Example}
+
+Let $f(x) = x^2$, which is convex.
+
+\[
+f(E[X]) = (E[X])^2
+\]
+
+\[
+E[f(X)] = E[X^2]
+\]
+
+Thus:
+
+\[
+(E[X])^2 \le E[X^2]
+\]
+
+\end{document}
