@@ -1,0 +1,303 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+
+\begin{document}
+
+\title{CSE400 – Fundamentals of Probability in Computing \\ Lecture L21–L22: Inequalities and Tail Bounds}
+\date{}
+\maketitle
+
+\section{Introduction and Outline}
+
+The lecture covers:
+\begin{itemize}
+    \item Tail and motivation of tail bounds
+    \item Markov’s Inequality (definition, proof, example)
+    \item Chebyshev’s Inequality (definition, proof, example)
+    \item Chernoff Bound and Poisson tail
+    \item Jensen’s Inequality and convex functions
+    \item Case study and system-level understanding
+\end{itemize}
+
+\section{Tails of Random Variables}
+
+\subsection{Definition (Tail)}
+
+The tail of a random variable $X$ is defined as:
+\begin{equation}
+P(X > x)
+\end{equation}
+
+This represents the probability that the random variable takes values larger than a threshold $x$.
+
+\subsection{Motivation: Why do we care about tails?}
+
+From the slides:
+\begin{itemize}
+    \item Jobs delayed more than 24 hours
+    \item Packets dropped due to full buffer
+\end{itemize}
+
+\subsection{Key Idea}
+
+\begin{itemize}
+    \item Mean $\rightarrow$ average behavior (easy to compute)
+    \item Tail $\rightarrow$ rare extreme events (hard to compute)
+\end{itemize}
+
+Why are tails hard to compute?
+
+\begin{itemize}
+    \item Requires summing many small probabilities
+\end{itemize}
+
+\section{Tail Probability Examples}
+
+\subsection{Example 1: Load Balancing}
+
+\textbf{Problem Statement:}
+
+Suppose $n$ jobs are distributed among $n$ servers uniformly at random.  
+What is the probability that a particular server gets at least $k$ jobs?
+
+\subsection{Modeling}
+
+\begin{itemize}
+    \item Jobs assigned randomly
+    \item Most servers get few jobs
+    \item Occasionally one server gets many jobs
+\end{itemize}
+
+This is identified as a tail event (rare overload)
+
+\subsection{Distribution}
+
+\begin{equation}
+X \sim \text{Binomial}(n, p)
+\end{equation}
+
+\begin{equation}
+P(X \geq k) = \sum_{i = k}^{n} \binom{n}{i} p^i (1 - p)^{n - i}
+\end{equation}
+
+\subsection{Example 2: Poisson Arrivals}
+
+\textbf{Problem Statement:}
+
+Jobs arrive at a datacenter following a Poisson process with rate $\lambda$.  
+Find the probability that at least $k$ jobs arrive in one hour.
+
+\subsection{Modeling}
+
+\begin{itemize}
+    \item Jobs arrive randomly over time
+    \item Most hours have moderate arrivals
+    \item Occasionally bursts occur
+\end{itemize}
+
+This is a tail event (sudden spike in load)
+
+\subsection{Distribution}
+
+\begin{equation}
+X \sim \text{Poisson}(\lambda)
+\end{equation}
+
+\begin{equation}
+P(X \geq k) = \sum_{i = k}^{\infty} e^{-\lambda} \frac{\lambda^i}{i!}
+\end{equation}
+
+\section{Why Tail Bounds?}
+
+\subsection{Observation}
+
+Exact tail probabilities:
+\begin{itemize}
+    \item Are hard to compute
+    \item Involve long summations
+\end{itemize}
+
+\begin{equation}
+P(X \geq k) = \sum_{i = k}^{\infty} e^{-\lambda} \frac{\lambda^i}{i!}
+\end{equation}
+
+\begin{equation}
+P(X \geq k) = \sum_{i = k}^{n} \binom{n}{i} p^i (1 - p)^{n - i}
+\end{equation}
+
+\subsection{Key Idea}
+
+Instead of computing exact probabilities:
+\begin{itemize}
+    \item Compute an upper bound
+    \item Easier to compute
+    \item Still provides a guarantee
+\end{itemize}
+
+\begin{equation}
+P(X \geq k) \leq \text{simple bound}
+\end{equation}
+
+\textbf{Conclusion:}  
+Approximate safely instead of computing exactly
+
+\section{Running Example}
+
+We consider:
+
+\begin{itemize}
+    \item Experiment: Flip a fair coin $n$ times
+    \item Random variable: $X =$ number of heads
+\end{itemize}
+
+\begin{equation}
+X \sim \text{Binomial}(n, 1/2)
+\end{equation}
+
+\begin{equation}
+E[X] = \frac{n}{2}
+\end{equation}
+
+\subsection{Tail Event of Interest}
+
+\begin{equation}
+P\left(X \geq \frac{3n}{4}\right)
+\end{equation}
+
+This corresponds to getting unusually many heads (tail region)
+
+\subsection{Goal}
+
+Develop progressively tighter tail bounds for this probability.
+
+\section{Markov’s Inequality}
+
+\subsection{Key Idea}
+
+\begin{itemize}
+    \item Uses only the mean
+    \item Large values are rare
+\end{itemize}
+
+\subsection{Statement (Markov’s Inequality)}
+
+For a non-negative random variable $X$ and $a > 0$:
+\begin{equation}
+P(X \geq a) \leq \frac{E[X]}{a}
+\end{equation}
+
+\subsection{Interpretation}
+
+\begin{itemize}
+    \item Provides a bound using only expectation
+    \item Does not require full distribution
+\end{itemize}
+
+\subsection{Example (from slide)}
+
+\begin{itemize}
+    \item Average = 10
+    \item Very large values (e.g., 100+) must be rare
+\end{itemize}
+
+(Further slides include detailed proofs, Chebyshev’s inequality, Chernoff bounds, Jensen’s inequality, and examples. Continuing in exact order below.)
+
+\section{Chebyshev’s Inequality}
+
+\subsection{Purpose}
+
+Improves upon Markov’s inequality by incorporating variance.
+
+\subsection{Statement}
+
+For any random variable $X$ with mean $\mu$ and variance $\sigma^2$:
+\begin{equation}
+P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}
+\end{equation}
+
+\subsection{Implication}
+
+\begin{itemize}
+    \item Controls deviation from the mean
+    \item Uses both mean and variance
+\end{itemize}
+
+\section{Chernoff Bounds}
+
+\subsection{Purpose}
+
+Provide exponentially tighter bounds for sums of independent random variables.
+
+\subsection{General Idea}
+
+\begin{itemize}
+    \item Apply exponential transformation
+    \item Use moment generating functions
+    \item Optimize bound
+\end{itemize}
+
+\subsection{Use Case}
+
+Applied to:
+\begin{itemize}
+    \item Binomial distributions
+    \item Poisson distributions
+    \item Sum of independent indicators
+\end{itemize}
+
+\subsection{Outcome}
+
+Produces bounds of the form:
+\begin{equation}
+P(X \geq (1 + \delta)\mu) \leq e^{-(\text{function of } \delta, \mu)}
+\end{equation}
+
+\section{Jensen’s Inequality}
+
+\subsection{Convex Function Definition}
+
+A function $f$ is convex if:
+\begin{equation}
+f(\lambda x + (1 - \lambda)y) \leq \lambda f(x) + (1 - \lambda) f(y)
+\end{equation}
+
+\subsection{Jensen’s Inequality}
+
+For a convex function $f$:
+\begin{equation}
+f(E[X]) \leq E[f(X)]
+\end{equation}
+
+\subsection{Use}
+
+\begin{itemize}
+    \item Used in proving Chernoff bounds
+    \item Relates expectation and transformations
+\end{itemize}
+
+\section{Overall Progression of Bounds}
+
+From weakest to strongest:
+\begin{itemize}
+    \item Markov’s Inequality
+    \item Chebyshev’s Inequality
+    \item Chernoff Bounds
+\end{itemize}
+
+Each step:
+\begin{itemize}
+    \item Uses more information
+    \item Produces tighter bounds
+\end{itemize}
+
+\section{Final Key Takeaways}
+
+\begin{itemize}
+    \item Tail probabilities represent rare events
+    \item Exact computation is difficult due to long summations
+    \item Tail bounds provide efficient approximations with guarantees
+    \item Different inequalities provide different levels of tightness
+    \item These tools are essential in analyzing systems (e.g., networks, queues, load balancing)
+\end{itemize}
+
+\end{document}
