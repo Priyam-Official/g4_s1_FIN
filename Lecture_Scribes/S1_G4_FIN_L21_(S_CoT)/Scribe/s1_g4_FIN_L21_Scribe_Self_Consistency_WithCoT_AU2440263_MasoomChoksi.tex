@@ -1,0 +1,202 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+
+\title{CSE400: Fundamentals of Probability in Computing \\ Lecture 21 \& 22: Inequalities and Tail Bounds}
+\author{Name: Masoom Choksi \\ AUID: AU2440263}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Acknowledgement}
+Mor Harchol-Balter, PhD \\
+J. Nelson Professor of Computer Science \\
+Carnegie Mellon University \\
+Publisher: Cambridge University Press (2024)
+
+\section*{Outline}
+\begin{itemize}
+    \item Tail and Motivation of Tail Bounds
+    \item Markov’s Inequality
+    \item Chebyshev’s Inequality
+    \item Chernoff Bound and Poisson Tail
+    \item Jensen’s Inequality and Convex Functions
+    \item Case Study
+\end{itemize}
+
+\section{Tail Bounds and Motivation}
+
+Let $X$ be a random variable. Tail bounds quantify probabilities of extreme deviations:
+\[
+\mathbb{P}(X \geq a), \quad \mathbb{P}(X \leq a), \quad \mathbb{P}(|X - \mathbb{E}[X]| \geq a)
+\]
+
+\textbf{Objective:} Bound probabilities using limited information such as expectation or variance.
+
+\section{Markov’s Inequality}
+
+\subsection{Assumptions}
+\begin{itemize}
+    \item $X \geq 0$
+    \item $\mathbb{E}[X]$ exists and is finite
+    \item $a > 0$
+\end{itemize}
+
+\subsection{Statement}
+\[
+\mathbb{P}(X \geq a) \leq \frac{\mathbb{E}[X]}{a}
+\]
+
+\subsection{Proof}
+\[
+\mathbb{E}[X] = \int_0^\infty x f_X(x)\,dx
+\]
+\[
+\mathbb{E}[X] \geq \int_a^\infty x f_X(x)\,dx \geq a \int_a^\infty f_X(x)\,dx
+\]
+\[
+\mathbb{E}[X] \geq a \cdot \mathbb{P}(X \geq a)
+\]
+\[
+\Rightarrow \mathbb{P}(X \geq a) \leq \frac{\mathbb{E}[X]}{a}
+\]
+
+\subsection{Example}
+Let $\mathbb{E}[X] = 12$, $a = 6$:
+\[
+\mathbb{P}(X \geq 6) \leq \frac{12}{6} = 2
+\]
+
+\section{Chebyshev’s Inequality}
+
+\subsection{Assumptions}
+\begin{itemize}
+    \item $\mathbb{E}[X] = \mu$
+    \item $\text{Var}(X) = \sigma^2$
+    \item $k > 0$
+\end{itemize}
+
+\subsection{Statement}
+\[
+\mathbb{P}(|X - \mu| \geq k) \leq \frac{\sigma^2}{k^2}
+\]
+
+\subsection{Proof}
+Define:
+\[
+Y = (X - \mu)^2 \geq 0
+\]
+Apply Markov’s inequality:
+\[
+\mathbb{P}(Y \geq k^2) \leq \frac{\mathbb{E}[Y]}{k^2}
+\]
+\[
+\mathbb{E}[Y] = \sigma^2
+\]
+\[
+\Rightarrow \mathbb{P}(|X - \mu| \geq k) \leq \frac{\sigma^2}{k^2}
+\]
+
+\subsection{Example}
+Let $\sigma^2 = 9$, $k = 3$:
+\[
+\mathbb{P}(|X - \mu| \geq 3) \leq \frac{9}{9} = 1
+\]
+
+\section{Chernoff Bound}
+
+\subsection{Assumptions}
+\begin{itemize}
+    \item $X$ is a random variable
+    \item Moment generating function exists
+    \item $t > 0$
+\end{itemize}
+
+\subsection{Statement}
+\[
+\mathbb{P}(X \geq a) \leq \frac{\mathbb{E}[e^{tX}]}{e^{ta}}
+\]
+
+\subsection{Proof}
+Apply Markov’s inequality to $e^{tX}$:
+\[
+\mathbb{P}(X \geq a) = \mathbb{P}(e^{tX} \geq e^{ta})
+\]
+\[
+\leq \frac{\mathbb{E}[e^{tX}]}{e^{ta}}
+\]
+
+\subsection{Example (Bernoulli Sum)}
+Let $X = \sum_{i=1}^n X_i$, $X_i \sim \text{Bernoulli}(p)$:
+\[
+\mu = \mathbb{E}[X] = np
+\]
+\[
+\mathbb{P}(X \geq (1+\delta)\mu) \leq \left(\frac{e^\delta}{(1+\delta)^{1+\delta}}\right)^\mu
+\]
+
+\section{Poisson Tail}
+
+\subsection{Assumptions}
+\begin{itemize}
+    \item $X \sim \text{Poisson}(\lambda)$
+\end{itemize}
+
+\subsection{Tail Probability}
+\[
+\mathbb{P}(X \geq k) \leq \frac{e^{-\lambda}\lambda^k}{k!}
+\]
+
+\section{Jensen’s Inequality}
+
+\subsection{Convex Function Definition}
+A function $\phi$ is convex if:
+\[
+\phi(\lambda x + (1-\lambda)y) \leq \lambda \phi(x) + (1-\lambda)\phi(y)
+\]
+
+\subsection{Assumptions}
+\begin{itemize}
+    \item $\phi$ is convex
+    \item $X$ is a random variable
+\end{itemize}
+
+\subsection{Statement}
+\[
+\phi(\mathbb{E}[X]) \leq \mathbb{E}[\phi(X)]
+\]
+
+\subsection{Proof}
+Using convexity and expectation linearity:
+\[
+\mathbb{E}[\phi(X)] = \sum p_i \phi(x_i) \geq \phi\left(\sum p_i x_i\right) = \phi(\mathbb{E}[X])
+\]
+
+\subsection{Example}
+Let $\phi(x) = x^2$:
+\[
+(\mathbb{E}[X])^2 \leq \mathbb{E}[X^2]
+\]
+
+\section{Case Study: Worst Case Demand}
+
+Let $X$ denote server demand.
+
+\subsection{Objective}
+Bound:
+\[
+\mathbb{P}(X \geq a)
+\]
+
+\subsection{Approaches}
+\begin{itemize}
+    \item Markov: uses $\mathbb{E}[X]$
+    \item Chebyshev: uses $\mathbb{E}[X]$ and $\text{Var}(X)$
+    \item Chernoff: uses independence and MGF
+\end{itemize}
+
+\subsection{Conclusion}
+Tail bounds provide guarantees for worst-case system performance.
+
+\end{document}
