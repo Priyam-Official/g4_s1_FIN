@@ -1,0 +1,456 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\begin{document}
+
+\section*{Lecture Scribe}
+
+\subsection*{CSE400 – Fundamentals of Probability in Computing}
+
+\subsection*{Lecture 21 and 22: Inequalities and Tail Bound}
+
+---
+
+\section*{Outline}
+
+The lecture covers the following topics:
+
+\begin{itemize}
+\item Tail and Motivation of Tail Bound
+\item Markov’s Inequality
+\begin{itemize}
+\item Definition and Proof
+\item Example
+\end{itemize}
+\item Chebyshive’s Inequality
+\begin{itemize}
+\item Definition and Proof
+\item Example
+\end{itemize}
+\item Chernof Bound and Poison Tail
+\begin{itemize}
+\item Definition and Proof
+\item Example
+\end{itemize}
+\item Jensen’s Inequality
+\begin{itemize}
+\item Convex Functions
+\item Proof and Example
+\end{itemize}
+\item Case Study and System Level Understanding
+\end{itemize}
+
+---
+
+\section*{1. Tails}
+
+\subsection*{Definition}
+
+The tail of a random variable $(X)$ is
+
+[
+P{X > x}.
+]
+
+\subsection*{Why do we care about tails?}
+
+\begin{itemize}
+\item Jobs delayed more than 24 hours
+\item Packets dropped due to full buffer
+\end{itemize}
+
+\subsection*{Key idea}
+
+\begin{itemize}
+\item Mean $(\rightarrow)$ average behavior (easy)
+\item Tail $(\rightarrow)$ rare extreme events (hard)
+\end{itemize}
+
+\subsection*{Why are tails hard to compute?}
+
+\begin{itemize}
+\item Requires summing many small probabilities
+\end{itemize}
+
+---
+
+\section*{2. Tails Example-1/2}
+
+\subsection*{Question}
+
+Suppose you’re distributing $(n)$ jobs among $(n)$ servers at random. What’s the probability that a particular server gets $(\geq k)$ jobs?
+
+\subsection*{Statements presented in the lecture}
+
+\begin{itemize}
+\item Jobs are assigned randomly
+\item Most servers get few jobs
+\item Occasionally, one server gets many jobs
+\end{itemize}
+
+This is a tail event (rare overload).
+
+\subsection*{Distribution}
+
+[
+X \sim \text{Binomial}(n,p)
+]
+
+\subsection*{Tail probability}
+
+[
+P{X \geq k}
+]
+[
+=
+
+]
+
+[
+\sum_{i=k}^{n}
+\binom{n}{i}p^i(1-p)^{n-i}
+]
+
+The highlighted server has $(\geq k)$ jobs.
+
+---
+
+\section*{3. Tails Example-2/2}
+
+\subsection*{Question}
+
+Jobs arrive to a datacenter according to a Poisson process with rate $(\lambda)$ jobs/hour. What’s the probability that $(\geq k)$ jobs arrive during the first hour?
+
+\subsection*{Statements presented in the lecture}
+
+\begin{itemize}
+\item Jobs arrive randomly over time
+\item Most hours have moderate arrivals
+\item Sometimes, we see a burst of arrivals
+\end{itemize}
+
+This is a tail event (sudden spike in load).
+
+\subsection*{Distribution}
+
+[
+X \sim \text{Poisson}(\lambda)
+]
+
+\subsection*{Tail probability}
+
+[
+P{X \geq k}
+]
+[
+=
+
+]
+
+[
+\sum_{i=k}^{\infty} e^{-\lambda}\cdot \frac{\lambda^i}{i!}
+]
+
+This corresponds to many arrivals within one hour $((\geq k \text{ jobs}))$.
+
+---
+
+\section*{4. Why Tail Bounds?}
+
+Exact tail probabilities are often hard to compute.
+
+\subsection*{Exact computation}
+
+[
+P{X \geq k}
+]
+[
+=
+
+]
+
+[
+\sum_{i=k}^{\infty} e^{-\lambda}\cdot \frac{\lambda^i}{i!}
+]
+
+[
+P{X \geq k}
+]
+[
+=
+
+]
+
+[
+\sum_{i=k}^{n}
+\binom{n}{i}p^i(1-p)^{n-i}
+]
+
+Complicated, long sums.
+
+\subsection*{Idea: Instead of exact value}
+
+\begin{itemize}
+\item We find an upper bound
+\item Easier to compute
+\item Still gives a guarantee
+\end{itemize}
+
+[
+\text{Exact: } P(X \geq k)=?
+]
+
+[
+\text{Bound: } P(X \geq k)\leq \text{something simple}
+]
+
+\subsection*{Key idea}
+
+Approximate safely instead of computing exactly.
+
+---
+
+\section*{5. Running Example (Key Idea)}
+
+The lecture introduces one running example with the following purpose:
+
+\begin{itemize}
+\item We will develop progressively better (tighter) tail bounds
+\item We test all bounds on the same example
+\end{itemize}
+
+\subsection*{Distribution used in the running example}
+
+[
+X \sim \text{Binomial}(n,1/2)
+]
+
+The mean is indicated as
+
+[
+\mu = n/2.
+]
+
+The tail region is shown as
+
+[
+P(X \geq 3n/4)
+]
+
+and is labeled as getting unusually many heads.
+
+---
+
+\section*{6. Running Example: Full Statement}
+
+\subsection*{Experiment}
+
+Flip a fair coin $(n)$ times.
+
+\subsection*{Distribution}
+
+[
+X = \text{number of heads}
+]
+
+[
+X \sim \text{Binomial}\left(n,\tfrac{1}{2}\right)
+]
+
+\subsection*{Mean}
+
+[
+E[X] = \frac{n}{2}
+]
+
+\subsection*{Question}
+
+[
+\text{What is } P\left(X \geq \frac{3}{4}n\right)?
+]
+
+---
+
+\section*{7. Markov’s Inequality}
+
+\subsection*{Key idea}
+
+\begin{itemize}
+\item Uses only the mean
+\item Large values $(\Rightarrow)$ rare
+\end{itemize}
+
+\subsection*{Example}
+
+[
+\text{Avg} = 10 \Rightarrow \text{few values can be } 100+
+]
+
+\subsection*{Statement}
+
+[
+P(X \geq a)\leq \frac{E[X]}{a}
+]
+
+---
+
+\section*{8. Proof (Idea) of Markov’s Inequality}
+
+The lecture presents the proof idea in the following steps:
+
+\begin{itemize}
+\item Consider only $(X \geq a)$
+\item Replace $(X)$ by $(a)$
+\end{itemize}
+
+Then the derivation shown is
+
+[
+E[X]=\sum_{x=0}^{\infty} x\cdot p_X(x)
+]
+
+[
+\geq \sum_{x=a}^{\infty} x\cdot p_X(x)
+]
+
+[
+\geq \sum_{x=a}^{\infty} a\cdot p_X(x)
+]
+
+[
+= a\cdot P(X\geq a)
+]
+
+Hence,
+
+[
+P(X\geq a)\leq \frac{E[X]}{a}.
+]
+
+---
+
+\section*{9. Markov’s Inequality on Running Example}
+
+\subsection*{Question}
+
+Flip a fair coin $(n)$ times:
+
+What’s a tail bound on the probability of getting at least $(\frac{3}{4}n)$ heads?
+
+\subsection*{Given}
+
+[
+X = \text{Number Heads} \sim \text{Binomial}\left(n,\frac{1}{2}\right)
+]
+
+[
+\mu = E[X] = \frac{n}{2}
+]
+
+\subsection*{Applying Markov’s inequality}
+
+[
+P\left{X \geq \frac{3}{4}n\right}
+\leq
+\frac{\mu}{\frac{3}{4}n}
+]
+[
+=
+
+]
+
+[
+# \frac{\frac{n}{2}}{\frac{3}{4}n}
+]
+
+[
+\frac{2}{3}
+]
+
+\subsection*{Conclusion stated in the lecture}
+
+Clearly a terrible bound because doesn’t involve $(n)$.
+
+---
+
+\section*{10. Markov Inequality: Real-Life Example}
+
+\subsection*{Scenario}
+
+Income Distribution
+
+\begin{itemize}
+\item Average income $(= 10{,}000)$
+\end{itemize}
+
+---
+
+\section*{11. Case Study}
+
+The lecture states:
+
+How to predict the worst case demands on server?
+
+---
+
+\section*{12. Closing}
+
+Thank You :)
+
+\end{document}
+
+\end{document}
