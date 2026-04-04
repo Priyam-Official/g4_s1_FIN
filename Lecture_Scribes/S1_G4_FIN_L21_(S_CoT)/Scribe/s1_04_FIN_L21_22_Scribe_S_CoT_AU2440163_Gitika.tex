@@ -1,0 +1,608 @@
+\documentclass[12pt]{article}
+
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\setstretch{1.15}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{CSE400}
+\lhead{Lecture 21 \& 22}
+\cfoot{\thepage}
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection.}{0.5em}{}
+
+\title{\textbf{CSE400 -- Fundamentals of Probability in Computing}\\
+\Large Lecture 21 \& 22 Scribe\\
+\large Inequalities and Tail Bounds}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+\vspace{-1.5em}
+\hrule
+\vspace{1em}
+
+\section{Introduction}
+
+In probability and computing systems, it is often important to understand not only the \textbf{average behavior} of a random variable, but also the probability of \textbf{rare and extreme events}. Such events are captured through the \textbf{tail} of a distribution. These lectures focus on the notion of tails, their importance in computing systems, and standard inequalities used to bound tail probabilities when exact computation is difficult.
+
+\section{Tail of a Random Variable}
+
+\subsection{Definition}
+The \textbf{tail} of a random variable \(X\) is defined as
+\[
+P(X > x)
+\]
+This quantity measures the probability that \(X\) exceeds a given threshold and lies in the extreme right side of the distribution.
+
+\section{Motivation for Studying Tails}
+
+Tail probabilities are important because they correspond to \textbf{rare but critical events} in real systems. Examples discussed in the lecture include:
+\begin{itemize}[leftmargin=1.5em]
+    \item Jobs delayed more than 24 hours
+    \item Packets dropped due to full buffer
+\end{itemize}
+
+The lecture emphasizes the following distinction:
+\begin{itemize}[leftmargin=1.5em]
+    \item The \textbf{mean} describes average behavior and is generally easier to compute.
+    \item The \textbf{tail} captures rare extreme behavior and is usually harder to compute.
+\end{itemize}
+
+The main difficulty arises because exact tail probabilities often require summing a large number of very small probabilities.
+
+\section{Examples of Tail Events}
+
+\subsection{Jobs Distributed Across Servers}
+Suppose \(n\) jobs are distributed randomly among \(n\) servers. Let \(X\) denote the number of jobs assigned to a particular server.
+
+Then,
+\[
+X \sim \text{Binomial}(n,p)
+\]
+
+The probability that this server gets at least \(k\) jobs is
+\[
+P(X \ge k)=\sum_{i=k}^{n}\binom{n}{i}p^i(1-p)^{n-i}
+\]
+
+This is a \textbf{tail event}, representing a rare overload scenario.
+
+\subsection{Poisson Arrivals at a Datacenter}
+Suppose jobs arrive to a datacenter according to a Poisson process with rate \(\lambda\) jobs per hour. Let \(X\) denote the number of arrivals in one hour.
+
+Then,
+\[
+X \sim \text{Poisson}(\lambda)
+\]
+
+The probability of receiving at least \(k\) arrivals is
+\[
+P(X \ge k)=\sum_{i=k}^{\infty} e^{-\lambda}\frac{\lambda^i}{i!}
+\]
+
+This is also a \textbf{tail event}, corresponding to a burst in traffic or load.
+
+\section{Why Tail Bounds Are Needed}
+
+Exact tail computation is often difficult due to complicated summations such as
+\[
+P(X \ge k)=\sum_{i=k}^{\infty} e^{-\lambda}\frac{\lambda^i}{i!}
+\]
+or
+\[
+P(X \ge k)=\sum_{i=k}^{n}\binom{n}{i}p^i(1-p)^{n-i}
+\]
+
+Hence, rather than computing exact values, the lecture proposes finding \textbf{upper bounds} of the form
+\[
+P(X \ge k)\le \text{something simple}
+\]
+
+These bounds are useful because they are:
+\begin{itemize}[leftmargin=1.5em]
+    \item easier to compute,
+    \item guaranteed to be valid,
+    \item and practically useful in system analysis.
+\end{itemize}
+
+\section{Running Example}
+
+To compare different inequalities, the lecture uses the same running example throughout.
+
+\subsection{Experiment}
+Flip a fair coin \(n\) times.
+
+\subsection{Random Variable}
+\[
+X = \text{number of heads}
+\]
+
+Then,
+\[
+X \sim \text{Binomial}\left(n,\frac12\right)
+\]
+
+\subsection{Mean}
+\[
+E[X]=\mu=\frac{n}{2}
+\]
+
+\subsection{Question}
+We wish to bound
+\[
+P\left(X \ge \frac34 n\right)
+\]
+
+This corresponds to the probability of obtaining \textbf{unusually many heads}.
+
+\section{Markov's Inequality}
+
+\subsection{Statement}
+For a \textbf{non-negative} random variable \(X \ge 0\) and any \(a>0\),
+\[
+P(X \ge a)\le \frac{E[X]}{a}
+\]
+
+This inequality provides an upper bound on the \textbf{right tail} using only the mean.
+
+\subsection{Interpretation}
+Markov’s inequality expresses the idea that if the average value of a non-negative random variable is small, then the probability of it taking a very large value must also be small.
+
+\subsection{Proof}
+Starting from the expectation:
+\[
+E[X]=\sum_{x=0}^{\infty} x\,p_X(x)
+\]
+
+Restricting to the values \(x \ge a\), we obtain
+\[
+E[X]\ge \sum_{x=a}^{\infty} x\,p_X(x)
+\]
+
+Since \(x \ge a\) in this range,
+\[
+E[X]\ge \sum_{x=a}^{\infty} a\,p_X(x)
+\]
+
+\[
+E[X]\ge a\sum_{x=a}^{\infty} p_X(x)
+\]
+
+\[
+E[X]\ge aP(X \ge a)
+\]
+
+Therefore,
+\[
+P(X \ge a)\le \frac{E[X]}{a}
+\]
+
+\subsection{Markov on the Running Example}
+For
+\[
+X \sim \text{Binomial}\left(n,\frac12\right)
+\]
+we have
+\[
+E[X]=\frac{n}{2}
+\]
+
+We want
+\[
+P\left(X \ge \frac34 n\right)
+\]
+
+Applying Markov’s inequality:
+\[
+P\left(X \ge \frac34 n\right)\le \frac{\frac n2}{\frac34 n}
+\]
+
+\[
+=\frac23
+\]
+
+\textbf{Observation:} This is a weak bound, since it does not improve as \(n\) increases.
+
+\subsection{Example: Income Distribution}
+Suppose the average income is
+\[
+E[X]=10{,}000
+\]
+
+To bound the fraction of people earning at least \(50{,}000\), apply Markov:
+\[
+P(X \ge 50{,}000)\le \frac{10{,}000}{50{,}000}
+\]
+
+\[
+=0.2
+\]
+
+Hence, at most \(20\%\) of people can earn \(50{,}000\) or more.
+
+\subsection{Solved Example 1: Exam Grades}
+Let \(X\) denote the student grade. Suppose:
+\[
+E[X]=70
+\]
+and the ``A'' cutoff is \(90\).
+
+Then
+\[
+P(X \ge 90)\le \frac{70}{90}
+\]
+
+\[
+=\frac79\approx 0.778
+\]
+
+Thus, at most \(77.8\%\) of students can receive an ``A''.
+
+\subsection{Solved Example 2: Server Request Load}
+Suppose a server processes an average of \(5{,}000\) requests per second. Let \(X\) denote the number of requests received in one second.
+
+Then
+\[
+E[X]=5000
+\]
+
+We want to bound
+\[
+P(X \ge 20{,}000)
+\]
+
+Applying Markov:
+\[
+P(X \ge 20{,}000)\le \frac{5000}{20{,}000}
+\]
+
+\[
+=\frac14=0.25
+\]
+
+Thus, the probability is at most \(25\%\).
+
+\subsection{Limitation of Markov's Inequality}
+Markov’s inequality only provides bounds on the \textbf{right tail}:
+\[
+P(X \ge a)
+\]
+
+It does not directly bound probabilities such as
+\[
+P(X<a)
+\]
+without additional information.
+
+\section{Chebyshev's Inequality}
+
+\subsection{Statement}
+For a random variable \(X\) with mean \(\mu\) and variance \(\operatorname{Var}(X)\), and for any \(a>0\),
+\[
+P(|X-\mu|\ge a)\le \frac{\operatorname{Var}(X)}{a^2}
+\]
+
+Equivalently, if \(\sigma^2 = \operatorname{Var}(X)\), then
+\[
+P(|X-\mu|\ge a)\le \frac{\sigma^2}{a^2}
+\]
+
+This inequality bounds the probability that \(X\) lies \textbf{far from its mean}.
+
+\subsection{Interpretation}
+Chebyshev’s inequality uses not only the mean, but also the \textbf{variance}, making it stronger than Markov in many settings.
+
+\subsection{Proof Idea}
+Apply Markov’s inequality to the non-negative random variable
+\[
+(X-\mu)^2
+\]
+
+Then,
+\[
+P(|X-\mu|\ge a)=P((X-\mu)^2\ge a^2)
+\]
+
+Applying Markov gives
+\[
+P((X-\mu)^2\ge a^2)\le \frac{E[(X-\mu)^2]}{a^2}
+\]
+
+Since
+\[
+E[(X-\mu)^2]=\operatorname{Var}(X)
+\]
+
+we obtain
+\[
+P(|X-\mu|\ge a)\le \frac{\operatorname{Var}(X)}{a^2}
+\]
+
+\subsection{Chebyshev on the Running Example}
+For
+\[
+X \sim \text{Binomial}\left(n,\frac12\right)
+\]
+we have
+\[
+\mu=\frac n2,\qquad \operatorname{Var}(X)=\frac n4
+\]
+
+We wish to bound
+\[
+P\left(X \ge \frac34 n\right)
+\]
+
+From the lecture:
+\[
+P\left(X \ge \frac34 n\right)
+=
+\frac12 P\left(\left|X-\frac n2\right|\ge \frac n4\right)
+\]
+
+Applying Chebyshev:
+\[
+P\left(\left|X-\frac n2\right|\ge \frac n4\right)\le \frac{n/4}{(n/4)^2}
+\]
+
+\[
+=\frac{4}{n}
+\]
+
+Thus,
+\[
+P\left(X \ge \frac34 n\right)\le \frac12\cdot \frac{4}{n}
+\]
+
+\[
+=\frac{2}{n}
+\]
+
+\textbf{Observation:} This bound decreases with \(n\) and is therefore better than Markov’s bound.
+
+\subsection{Example: Exam Scores}
+Suppose exam scores have
+\[
+\mu=70,\qquad \sigma=10
+\]
+
+We want to bound the fraction of students scoring below \(40\) or above \(100\). This is
+\[
+P(|X-70|\ge 30)
+\]
+
+Applying Chebyshev:
+\[
+P(|X-70|\ge 30)\le \frac{10^2}{30^2}
+\]
+
+\[
+=\frac{100}{900}=\frac19
+\]
+
+Hence, at most \(\frac19\) of students are this far from the mean.
+
+\subsection{Solved Example: Exam Grades with Variance}
+Suppose
+\[
+\mu=70,\qquad \sigma=5,\qquad \sigma^2=25
+\]
+and the ``A'' cutoff is \(90\).
+
+Observe that
+\[
+X\ge 90 \implies |X-70|\ge 20
+\]
+
+Hence,
+\[
+P(X\ge 90)\le P(|X-70|\ge 20)
+\]
+
+Applying Chebyshev:
+\[
+P(|X-70|\ge 20)\le \frac{25}{20^2}
+\]
+
+\[
+=\frac{25}{400}=\frac{1}{16}=0.0625
+\]
+
+Thus,
+\[
+P(X\ge 90)\le 0.0625
+\]
+
+This is a much tighter bound than the Markov bound of \(0.778\).
+
+\section{Chernoff Bound and Poisson Tail}
+
+The lecture outline explicitly includes:
+\begin{itemize}[leftmargin=1.5em]
+    \item Chernoff Bound
+    \item Poisson Tail
+    \item Definition and proof
+    \item Example
+\end{itemize}
+
+\subsection{Poisson Tail}
+For
+\[
+X \sim \text{Poisson}(\lambda)
+\]
+the upper tail is
+\[
+P(X \ge k)=\sum_{i=k}^{\infty} e^{-\lambda}\frac{\lambda^i}{i!}
+\]
+
+This expression is used to quantify rare arrival bursts in queueing and server systems.
+
+\subsection{Role of Chernoff Bound}
+The lecture presents Chernoff bound as a \textbf{progressively tighter tail bound} than both Markov and Chebyshev.
+
+Thus, the sequence of inequalities emphasized in the lecture is:
+\[
+\text{Markov} \rightarrow \text{Chebyshev} \rightarrow \text{Chernoff}
+\]
+
+where each step gives a better tail estimate.
+
+\section{Jensen's Inequality}
+
+The lecture outline includes:
+\begin{itemize}[leftmargin=1.5em]
+    \item Jensen’s Inequality
+    \item Convex Functions
+    \item Proof and Example
+\end{itemize}
+
+\subsection{Convex Functions}
+Jensen’s inequality is introduced in the context of \textbf{convex functions}.
+
+\subsection{Role in These Lectures}
+Jensen’s inequality is included as an important inequality involving:
+\begin{itemize}[leftmargin=1.5em]
+    \item random variables,
+    \item expectation,
+    \item and convex functions.
+\end{itemize}
+
+\section{Case Study and System-Level Understanding}
+
+The lecture concludes with a case study centered around the question:
+
+\subsection*{How to predict the worst-case demands on server?}
+
+This highlights the practical role of tail bounds in computing systems. Tail probabilities are essential in estimating rare but important events such as:
+\begin{itemize}[leftmargin=1.5em]
+    \item overloads,
+    \item bursts of requests,
+    \item queue buildup,
+    \item and performance degradation.
+\end{itemize}
+
+\textbf{Main Insight:} Average behavior alone is insufficient for system design. One must also understand the probability of rare extreme events.
+
+\section{Final Summary}
+
+\subsection{Core Definitions}
+Tail of \(X\):
+\[
+P(X>x)
+\]
+
+Right-tail event:
+\[
+P(X\ge a)
+\]
+
+Deviation from mean:
+\[
+P(|X-\mu|\ge a)
+\]
+
+\subsection{Exact Tail Forms}
+\textbf{Binomial:}
+\[
+P(X \ge k)=\sum_{i=k}^{n}\binom{n}{i}p^i(1-p)^{n-i}
+\]
+
+\textbf{Poisson:}
+\[
+P(X \ge k)=\sum_{i=k}^{\infty} e^{-\lambda}\frac{\lambda^i}{i!}
+\]
+
+\subsection{Markov's Inequality}
+\[
+P(X\ge a)\le \frac{E[X]}{a}
+\qquad (X\ge 0)
+\]
+
+\subsection{Chebyshev's Inequality}
+\[
+P(|X-\mu|\ge a)\le \frac{\operatorname{Var}(X)}{a^2}
+\]
+
+\subsection{Running Example}
+\[
+X\sim \text{Binomial}\left(n,\frac12\right),\quad E[X]=\frac n2,\quad \operatorname{Var}(X)=\frac n4
+\]
+
+Tail of interest:
+\[
+P\left(X\ge \frac34 n\right)
+\]
+
+Markov bound:
+\[
+P\left(X\ge \frac34 n\right)\le \frac23
+\]
+
+Chebyshev bound:
+\[
+P\left(X\ge \frac34 n\right)\le \frac2n
+\]
+
+\subsection{Final Conceptual Message}
+\begin{itemize}[leftmargin=1.5em]
+    \item Exact tail probabilities are often difficult to compute.
+    \item Tail inequalities provide simpler, guaranteed bounds.
+    \item These bounds are important for understanding \textbf{rare extreme events} in computing systems.
+\end{itemize}
+
+\section{One-Page Exam Memory Sheet}
+
+\[
+P(X>x)
+\]
+
+\[
+P(X\ge a)\le \frac{E[X]}{a}
+\]
+
+\[
+P(|X-\mu|\ge a)\le \frac{\operatorname{Var}(X)}{a^2}
+\]
+
+\[
+P(X\ge k)=\sum_{i=k}^{n}\binom{n}{i}p^i(1-p)^{n-i}
+\]
+
+\[
+P(X\ge k)=\sum_{i=k}^{\infty} e^{-\lambda}\frac{\lambda^i}{i!}
+\]
+
+\[
+X\sim \text{Binomial}\left(n,\frac12\right)
+\]
+
+\[
+E[X]=\frac n2,\qquad \operatorname{Var}(X)=\frac n4
+\]
+
+\[
+P\left(X\ge \frac34 n\right)\le \frac23
+\]
+
+\[
+P\left(X\ge \frac34 n\right)\le \frac2n
+\]
+
+\[
+\text{Markov} \rightarrow \text{Chebyshev} \rightarrow \text{Chernoff}
+\]
+
+\end{document}
