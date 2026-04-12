@@ -1,0 +1,258 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+
+\title{CSE 400: Fundamentals of Probability in Computing \\ Lecture Scribe (L25 Tutorial - Inequalities)}
+\author{Name: Masoom Choksi \\ AUID: AU2440263}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Q1}
+Given $E[X] = 40000$.
+
+\subsection*{(a) Markov's Inequality}
+\textbf{Definition:} For a non-negative random variable $X$,
+\[
+P(X \geq a) \leq \frac{E[X]}{a}, \quad a > 0
+\]
+
+Applying:
+\[
+P(X \geq 120000) \leq \frac{40000}{120000} = \frac{1}{3}
+\]
+
+\subsection*{(b)}
+Markov's inequality applies only to probabilities of the form $P(X \geq a)$. It cannot be used to bound $P(X \leq a)$ since it requires non-negativity and an upper-tail formulation.
+
+\section*{Q2}
+Given $\mu = 100$, $\sigma = 2$.
+
+Defective condition:
+\[
+X \notin [94,106] \Rightarrow |X - 100| \geq 6
+\]
+
+\subsection*{(a) Chebyshev's Inequality}
+\textbf{Definition:}
+\[
+P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}
+\]
+
+Here:
+\[
+k = \frac{6}{2} = 3
+\]
+
+Thus:
+\[
+P(\text{defective}) = P(|X - 100| \geq 6) \leq \frac{1}{9}
+\]
+
+\subsection*{(b)}
+Let $D$ be number of defective units.
+
+\[
+E[D] = 10000 \cdot P(\text{defective}) \leq 10000 \cdot \frac{1}{9} = \frac{10000}{9}
+\]
+
+\section*{Q3}
+Given $0 \leq Y \leq 1$, $E[Y] = \mu$, and $g(x)=e^x$ is convex.
+
+Using convexity:
+\[
+e^{tY} = e^{t((1-Y)\cdot 0 + Y \cdot 1)} \leq (1-Y)e^0 + Y e^t
+\]
+
+\[
+= 1 - Y + Y e^t
+\]
+
+Taking expectation:
+\[
+E[e^{tY}] \leq E[1 - Y + Y e^t]
+\]
+
+\[
+= 1 - E[Y] + E[Y] e^t
+\]
+
+\[
+= 1 - \mu + \mu e^t
+\]
+
+\section*{Q4}
+Given $X > 0$, $E[X] = \mu$, $a > 1$.
+
+\textbf{Jensen's Inequality:}
+For convex $g$,
+\[
+E[g(X)] \geq g(E[X])
+\]
+
+Since $g(x)=x^a$ is convex for $a>1$:
+\[
+E[X^a] \geq (E[X])^a
+\]
+
+\section*{Q5}
+Using Chebyshev:
+\[
+P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}
+\]
+
+Thus deviation by more than $k$ standard deviations:
+\[
+P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}
+\]
+
+\section*{Q6}
+Given $E[X]=500$.
+
+\subsection*{(a) Markov}
+\[
+P(X \geq 1000) \leq \frac{500}{1000} = \frac{1}{2}
+\]
+
+\subsection*{(b)}
+Given $\sigma^2 = 100 \Rightarrow \sigma = 10$.
+
+\[
+P(400 \leq X \leq 600) = P(|X - 500| < 100)
+\]
+
+Apply Chebyshev:
+\[
+k = \frac{100}{10} = 10
+\]
+
+\[
+P(|X - 500| \geq 100) \leq \frac{1}{100}
+\]
+
+Thus:
+\[
+P(|X - 500| < 100) \geq 1 - \frac{1}{100} = \frac{99}{100}
+\]
+
+\section*{Q7}
+Given:
+\[
+P(X_i = 1) = P(X_i = -1) = \frac{1}{2}, \quad S_n = \sum_{i=1}^n X_i
+\]
+
+\subsection*{(a)}
+\[
+E[e^{tX_i}] = \frac{1}{2}(e^t + e^{-t})
+\]
+
+Using inequality:
+\[
+\frac{e^t + e^{-t}}{2} \leq e^{t^2/2}
+\]
+
+Thus:
+\[
+E[e^{tX_i}] \leq e^{t^2/2}
+\]
+
+\subsection*{(b)}
+Independence implies:
+\[
+E[e^{tS_n}] = \prod_{i=1}^n E[e^{tX_i}]
+\]
+
+\[
+\leq (e^{t^2/2})^n = e^{nt^2/2}
+\]
+
+\section*{Q8}
+Let $X$ be number of mixed pairs.
+
+Expected value:
+\[
+E[X] = 50
+\]
+
+We want:
+\[
+P(X \leq 30)
+\]
+
+Using Chernoff bound for lower tail:
+\[
+P(X \leq (1-\delta)E[X]) \leq e^{-\frac{\delta^2 E[X]}{2}}
+\]
+
+Here:
+\[
+(1-\delta)50 = 30 \Rightarrow \delta = 0.4
+\]
+
+Thus:
+\[
+P(X \leq 30) \leq e^{-\frac{(0.4)^2 \cdot 50}{2}} = e^{-4}
+\]
+
+\section*{Q9}
+We prove:
+\[
+\sum_{i=1}^n \sqrt{i^2+1} \geq \frac{n}{2}\sqrt{n^2+2n+5}
+\]
+
+Using convexity of $f(x)=\sqrt{x^2+1}$:
+
+By Jensen:
+\[
+\frac{1}{n}\sum_{i=1}^n f(i) \geq f\left(\frac{1}{n}\sum_{i=1}^n i\right)
+\]
+
+\[
+= f\left(\frac{n+1}{2}\right)
+\]
+
+Thus:
+\[
+\sum_{i=1}^n \sqrt{i^2+1} \geq n \sqrt{\left(\frac{n+1}{2}\right)^2 + 1}
+\]
+
+\[
+= \frac{n}{2}\sqrt{(n+1)^2 + 4}
+= \frac{n}{2}\sqrt{n^2+2n+5}
+\]
+
+\section*{Q10}
+Let $X \sim \text{Poisson}(20)$.
+
+\subsection*{(a) Markov}
+\[
+P(X \geq 26) \leq \frac{E[X]}{26} = \frac{20}{26}
+\]
+
+\subsection*{(b) One-sided Chebyshev}
+\[
+P(X - 20 \geq 6) \leq \frac{\text{Var}(X)}{\text{Var}(X) + 6^2}
+\]
+
+Since $\text{Var}(X)=20$:
+\[
+= \frac{20}{20+36} = \frac{20}{56}
+\]
+
+\subsection*{(c) Chernoff Bound}
+\[
+P(X \geq a) \leq \inf_{t>0} \frac{E[e^{tX}]}{e^{ta}}
+\]
+
+For Poisson:
+\[
+E[e^{tX}] = e^{20(e^t - 1)}
+\]
+
+Thus:
+\[
+P(X \geq 26) \leq \inf_{t>0} \exp(20(e^t - 1) - 26t)
+\]
+
+\end{document}
