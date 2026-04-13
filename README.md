@@ -101,7 +101,7 @@ Each lecture is systematically organized into:
 - 💻 Python (Monte Carlo Simulation, VaR Modeling)  
 - 📊 Data Analysis (CSV Datasets)  
 - 📝 LaTeX (Scribe Documentation)  
-- 🧠 ChatGPT (Prompt Engineering & Content Generation)  
+- 🧠 ChatGPT (Prompt Engineering using Self-Consistency Chain-of-Thought for Lecture Scribes)
 - 🧰 VS Code & GitHub  
 
 ---
@@ -120,5 +120,5 @@ Each lecture is systematically organized into:
 - The project integrates **theoretical concepts with practical simulations**  
 - Emphasis is placed on **structured documentation and reproducibility**  
 - All materials are organized for **easy navigation and evaluation** 
- 
+
 ---
