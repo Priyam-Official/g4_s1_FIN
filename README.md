@@ -120,5 +120,4 @@ Each lecture is systematically organized into:
 - The project integrates **theoretical concepts with practical simulations**  
 - Emphasis is placed on **structured documentation and reproducibility**  
 - All materials are organized for **easy navigation and evaluation**  
-
 ---
