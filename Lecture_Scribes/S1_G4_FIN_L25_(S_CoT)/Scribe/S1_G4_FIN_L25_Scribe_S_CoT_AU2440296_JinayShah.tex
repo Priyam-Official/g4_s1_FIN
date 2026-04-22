@@ -1,0 +1,261 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\begin{document}
+
+\section{Question 1: Markov’s Inequality (Basic Bounding)}
+
+\subsection{Concepts Required}
+\begin{itemize}
+\item Only expectation is known
+\item Random variable is non-negative
+\end{itemize}
+
+\subsection{Key Formulas}
+\begin{align}
+P(X \ge a) \le \frac{\mathbb{E}[X]}{a}
+\end{align}
+
+\subsection{Step-by-Step Solution}
+
+\textbf{(a) $P(X \ge 120000)$}
+\begin{align}
+\mathbb{E}[X] = 40000,\quad a = 120000
+\end{align}
+\begin{align}
+P(X \ge 120000) \le \frac{40000}{120000} = \frac{1}{3}
+\end{align}
+
+\textbf{Final Answer:} $\frac{1}{3}$
+
+\textbf{(b) $P(X < 10000)$}
+
+\subsection{Explanation / Intuition}
+\begin{itemize}
+\item Markov bounds only upper tail probabilities
+\item Cannot directly compute $P(X < a)$
+\end{itemize}
+
+\textbf{Final Answer:} Not applicable
+
+\section{Question 2: Chebyshev’s Inequality (Variance-Based Bound)}
+
+\subsection{Concepts Required}
+\begin{itemize}
+\item Mean + variance given
+\item Want probability of deviation
+\end{itemize}
+
+\subsection{Key Formulas}
+\begin{align}
+P(|X - \mu| \ge k\sigma) \le \frac{1}{k^2}
+\end{align}
+
+\subsection{Step-by-Step Solution}
+
+\textbf{(a) Defective resistor}
+\begin{align}
+\mu = 100,\quad \sigma = 2
+\end{align}
+\begin{align}
+\text{Deviation} = 6,\quad k = \frac{6}{2} = 3
+\end{align}
+\begin{align}
+P(\text{defective}) \le \frac{1}{9}
+\end{align}
+
+\textbf{Final Answer:} $\frac{1}{9}$
+
+\textbf{(b) Maximum defective (10,000 items)}
+\begin{align}
+10000 \times \frac{1}{9} \approx 1111
+\end{align}
+
+\textbf{Final Answer:} $\approx 1111$ resistors
+
+\section{Question 3: Convexity Inequality (Exponential)}
+
+\subsection{Concepts Required}
+\begin{itemize}
+\item $e^x$ is convex
+\item Use linear upper bound between endpoints
+\end{itemize}
+
+\subsection{Key Formulas}
+\begin{align}
+e^{tY} \le (1-Y)e^0 + Ye^t
+\end{align}
+
+\subsection{Step-by-Step Solution}
+Taking expectation:
+\begin{align}
+\mathbb{E}[e^{tY}] \le 1 - \mu + \mu e^t
+\end{align}
+
+\textbf{Final Answer:} Convexity + expectation
+
+\section{Question 4: Jensen’s Inequality (Expectation Transformation)}
+
+\subsection{Concepts Required}
+\begin{itemize}
+\item For convex $g(x)$
+\end{itemize}
+
+\subsection{Key Formulas}
+\begin{align}
+\mathbb{E}[g(X)] \ge g(\mathbb{E}[X])
+\end{align}
+
+\subsection{Step-by-Step Solution}
+Apply for $g(X) = X^a,\ a > 1$:
+\begin{align}
+\mathbb{E}[X^a] \ge (\mathbb{E}[X])^a
+\end{align}
+
+\subsection{Explanation / Intuition}
+Convex cost → average cost increases
+
+\section{Question 5: Standard Chebyshev Form (Derivation)}
+
+\subsection{Concepts Required}
+\begin{itemize}
+\item Derivation of standard form
+\end{itemize}
+
+\subsection{Key Formulas}
+\begin{align}
+P(|X - \mu| \ge k\sigma) \le \frac{1}{k^2}
+\end{align}
+
+\subsection{Step-by-Step Solution}
+Start from:
+\begin{align}
+P(|X - \mu| \ge a) \le \frac{\sigma^2}{a^2}
+\end{align}
+Substitute $a = k\sigma$
+
+\textbf{Final Answer:} Probability drops as $\frac{1}{k^2}$
+
+\section{Question 6: Production Problem}
+
+\subsection{Step-by-Step Solution}
+
+\textbf{(a) $P(X \ge 1000)$}
+\begin{align}
+P(X \ge 1000) \le \frac{500}{1000} = \frac{1}{2}
+\end{align}
+
+\textbf{(b) $P(400 \le X \le 600)$}
+\begin{align}
+\mu = 500,\quad \sigma^2 = 100 \Rightarrow \sigma = 10
+\end{align}
+\begin{align}
+k = \frac{100}{10} = 10
+\end{align}
+\begin{align}
+P(|X - 500| \ge 100) \le \frac{1}{100}
+\end{align}
+\begin{align}
+P(400 \le X \le 600) \ge 1 - \frac{1}{100} = \frac{99}{100}
+\end{align}
+
+\section{Question 7: Chernoff Bound (MGF Technique)}
+
+\subsection{Key Formulas}
+
+\textbf{(a) Single variable}
+\begin{align}
+\mathbb{E}[e^{tX_i}] = \frac{e^t + e^{-t}}{2} \le e^{t^2/2}
+\end{align}
+
+\textbf{(b) Sum $S_n$}
+\begin{align}
+\mathbb{E}[e^{tS_n}] = \prod \mathbb{E}[e^{tX_i}] \le e^{nt^2/2}
+\end{align}
+
+\subsection{Explanation / Intuition}
+MGF simplifies exponential bounds
+
+\section{Question 8: Pairing Problem (Large Deviation)}
+
+\subsection{Concepts Required}
+\begin{itemize}
+\item Expected mixed pairs = 50
+\item Want $\le 30$
+\end{itemize}
+
+\subsection{Key Formulas}
+\begin{align}
+P(X \le (1-\delta)\mu) \le e^{-\mu \delta^2 / 2}
+\end{align}
+
+\subsection{Step-by-Step Solution}
+\begin{align}
+\delta = 0.4
+\end{align}
+\begin{align}
+P(X \le 30) \le e^{-4}
+\end{align}
+
+\textbf{Final Answer:} Extremely small probability
+
+\section{Question 9: Inequality Proof}
+
+\subsection{Key Formulas}
+\begin{align}
+\sum_{i=1}^{n} \frac{1}{i^2 + 1} \ge \frac{2n}{n^2 + 2n + 5}
+\end{align}
+
+\subsection{Explanation / Intuition}
+\begin{itemize}
+\item Use pairing technique or
+\item Compare symmetric terms
+\item Or use convexity / bounding
+\end{itemize}
+
+\textbf{Final Answer:} Avoid brute-force expansion
+
+\section{Question 10: Comparing Bounds (Markov vs Chebyshev vs Chernoff)}
+
+\subsection{Concepts Required}
+\begin{itemize}
+\item Given $X \sim \text{Poisson}(20)$
+\end{itemize}
+
+\subsection{Step-by-Step Solution}
+
+\textbf{(a) Markov}
+\begin{align}
+P(X \ge 26) \le \frac{20}{26}
+\end{align}
+
+\textbf{(b) One-sided Chebyshev}
+\begin{align}
+P(X - 20 \ge 6) \le \frac{20}{36}
+\end{align}
+
+\textbf{(c) Chernoff (best bound)}
+\begin{align}
+P(X \ge (1+\delta)\mu) \le \left( \frac{(1+\delta)^{1+\delta}}{e^\delta} \right)^\mu
+\end{align}
+\begin{align}
+\delta = 0.3
+\end{align}
+
+\textbf{Final Answer:} Most accurate upper bound
+
+\section{Final Exam Strategy}
+
+\subsection{Inequality Selection}
+
+\begin{itemize}
+\item Only mean known → Markov
+\item Mean + variance → Chebyshev
+\item Convex function → Jensen
+\item Tight exponential bound → Chernoff
+\end{itemize}
+
+\end{document}
